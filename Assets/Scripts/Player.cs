@@ -35,8 +35,11 @@ public class Player : MonoBehaviour {
 			movement.x -= frameSpeed;
 		}
 
-		if (movement.x != x && movement != y) 
-						position += movement;
+		if (movement.x != x && movement.y != y) {
+			float v = Mathf.Atan2(y,x);
+			movement.x = Mathf.Cos(v) * movement.x;
+			movement.y = Mathf.Sin(v) * movement.y;
+		}
 		else
 			position += movement;
 		transform.position = new Vector2 ((int)position.x, (int) position.y);
