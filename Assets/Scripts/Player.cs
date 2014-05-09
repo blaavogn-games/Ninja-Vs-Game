@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 	void Update () {
 		Vector2 movement = Vector2.zero;
 		float frameSpeed = speed * Time.deltaTime;
+		float y = movement.y;
+		float x = movement.x;
 
 		if(Input.GetKey(down)){
 			movement.y -= frameSpeed;
@@ -33,7 +35,10 @@ public class Player : MonoBehaviour {
 			movement.x -= frameSpeed;
 		}
 
-		position += movement;
+		if (movement.x != x && movement != y) 
+						position += movement;
+		else
+			position += movement;
 		transform.position = new Vector2 ((int)position.x, (int) position.y);
 	}
 }
