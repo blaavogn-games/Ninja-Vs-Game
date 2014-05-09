@@ -35,7 +35,7 @@ public class Player : MonoBehaviour {
 			movement.x -= frameSpeed;
 		}
 
-		if (movement.x != x && movement != y) 
+		if (movement.x != x && movement.y != y) 
 						position += movement;
 		else
 			position += movement;
