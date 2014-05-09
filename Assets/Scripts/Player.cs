@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public float speed = 3.5f;
+	public float speed = 3.0f;
 	public KeyCode up, down, left, right;
 
 	// Use this for initialization
@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector2 movement = Vector2.zero;
+		float frameSpeed = speed * Time.deltaTime;
 
 		if(Input.GetKey(down)){
 			movement.y -= frameSpeed;
