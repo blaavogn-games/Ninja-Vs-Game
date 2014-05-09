@@ -2,9 +2,9 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public float speed = 3.0f;
+	public float speed = 15.0f;
 	public KeyCode up, down, left, right;
-
+	private Vector2 position;
 	// Use this for initialization
 	void Start () {
 	
@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 	void Update () {
 		Vector2 movement = Vector2.zero;
 		float frameSpeed = speed * Time.deltaTime;
+		float y = movement.y;
+		float x = movement.x;
 
 		if(Input.GetKey(down)){
 			movement.y -= frameSpeed;
@@ -33,5 +35,13 @@ public class Player : MonoBehaviour {
 			movement.x -= frameSpeed;
 		}
 
+		if (movement.x != x && movement.y != y) {
+			movement.x = (movement.x * Mathf.Sqrt(2))/2;
+			movement.y = (movement.y * Mathf.Sqrt(2))/2;
+			position += movement;
+		}
+		else
+			position += movement;
+		transform.position = new Vector2 ((int)position.x, (int) position.y);
 	}
 }
