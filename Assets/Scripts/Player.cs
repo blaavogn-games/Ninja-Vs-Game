@@ -10,6 +10,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	private Vector2 position;
     Animator animator;
 	public float speedBoost = 1.0f;
+	public GameObject deadAnimation;
 	private Alarm alarm;
     bool isMoving;
     bool isRolling = false;
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 		if(Input.GetKeyDown(rollFall)){
 			Debug.Log ("rollfall");
+
 			if(energi.usePlayerEnergi(10)){
 				Debug.Log ("use player energi");
 				speedBoost = 2f;
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour, AlarmListener {
 				boxCollider.size = new Vector2(7, 7);
 				alarm.clear();
 				alarm.addTimer(.5f, 0, false);
+				audio.Play();
 			}
 		} 
 
@@ -111,9 +114,10 @@ public class Player : MonoBehaviour, AlarmListener {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
+		Instantiate (deadAnimation, this.position, Quaternion.identity);
+
 		Destroy (col.gameObject);
 		Destroy (this.gameObject);
-		audio.Play ();
 	}
 
 
