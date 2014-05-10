@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour, AlarmListener {
 	EnergiBar energi;
-    private readonly Vector2 gameSize = new Vector2(76, 54);
+    BoxCollider2D boxCollider;
+    private readonly Vector2 min = new Vector2(-76, -54),max = new Vector2(76, 48);
 	public float speed = 15.0f;
 	public KeyCode up, down, left, right, boost;
 	private Vector2 position;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	// Use this for initialization
 	void Start () {
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
+        boxCollider = GetComponent<BoxCollider2D>();
 		position = transform.position;
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
@@ -53,6 +55,8 @@ public class Player : MonoBehaviour, AlarmListener {
 		if(Input.GetKeyDown(KeyCode.LeftControl)){
 			speedBoost = 2f;
             isRolling = true;
+            boxCollider.center = new Vector2(0, -3);
+            boxCollider.size = new Vector2(7, 7);
 			alarm.clear();
 			alarm.addTimer(.5f, 0, false);
 		} 
@@ -71,16 +75,16 @@ public class Player : MonoBehaviour, AlarmListener {
             isMoving = false;
 		}
 
-        if (position.x < -gameSize.x) {
-            position.x = -gameSize.x;
-        } else if (position.x > gameSize.x) {
-            position.x = gameSize.x;
+        if (position.x < min.x) {
+            position.x = min.x;
+        } else if (position.x > max.x) {
+            position.x = max.x;
         }
 
-        if (position.y < -gameSize.y) {
-            position.y = -gameSize.y;
-        } else if (position.y > gameSize.y) {
-            position.y = gameSize.y;
+        if (position.y < min.y) {
+            position.y = min.y;
+        } else if (position.y > max.y) {
+            position.y = max.y;
         }
 		transform.position = position;
         
@@ -91,6 +95,8 @@ public class Player : MonoBehaviour, AlarmListener {
 	}
 
 	public void onAlarm(int i){
+        boxCollider.center = new Vector2(0, 0);
+        boxCollider.size = new Vector2(7, 13);
         speedBoost = 1.0f;
         isRolling = false;
 	}
