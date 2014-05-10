@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class MouseMovement : MonoBehaviour {
+	EnergiBar energi;
 	Vector3 mousePosition;
 	float wobbleY = 0;
 	float wobbleX = 0;
@@ -19,6 +20,7 @@ public class MouseMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
 		activeAbility = Ability.SpreadBomb;
 	}
@@ -59,9 +61,10 @@ public class MouseMovement : MonoBehaviour {
 	private void activateAbility(){
 		switch (activeAbility) {
 		case Ability.SpreadBomb : 
-
-			bulletTime = Time.time +fireRate;
-			Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+			if(energi.useGameMasterEnergi(10)){
+				bulletTime = Time.time +fireRate;
+				Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+			}
 			break;
 		}
 	}
