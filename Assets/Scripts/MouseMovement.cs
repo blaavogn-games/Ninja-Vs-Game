@@ -16,7 +16,6 @@ public class MouseMovement : MonoBehaviour {
 	Vector3 deltaPos;
 	Vector3 lastPos;
 	Vector3 lastMousePos;
-	private Ability activeAbility;
 
 
 
@@ -24,7 +23,6 @@ public class MouseMovement : MonoBehaviour {
 	void Start () {
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
-		activeAbility = Ability.SpreadBomb;
 	}
 	
 	// Update is called once per frame
@@ -42,7 +40,10 @@ public class MouseMovement : MonoBehaviour {
 		//Debug.Log (deltaPos.x);
 
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
-				activateAbility();
+				if(energi.useGameMasterEnergi(10)){
+					bulletTime = Time.time +fireRate;
+					Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+				}
 			
 			
 		//	Debug.Log (bulletTime+" = bulletTime");
@@ -60,20 +61,6 @@ public class MouseMovement : MonoBehaviour {
 
 	}
 
-	private void activateAbility(){
-		switch (activeAbility) {
-		case Ability.SpreadBomb : 
-			if(energi.useGameMasterEnergi(10)){
-				bulletTime = Time.time +fireRate;
-				Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
-			}
-			break;
-		}
-	}
-
-	private enum Ability{
-		SpreadBomb
-	}
 
 }
 	

@@ -30,6 +30,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 				flashSwitch = true;
 				alarm.addTimer (blinktTime, 0, false);
 				blinkCounter += 1; 	
+				audio.Play ();
 
 			} else {
 				renderer.material.color = Color.white;
@@ -40,16 +41,20 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 		}
 		else{
 			arrowBombExplode();
+
 		}
 	}
 
 
 	public void arrowBombExplode(){
-				for (var i = 12; i > 0; i--) {
-						Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
-						angle += 30f;
-				}
-		Destroy (gameObject);
+		if (shootCounter < 12) {
+			Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
+			angle += 30f;
+			shootCounter += shootCounter + 1f;
+			alarm.addTimer (0.2f, 1, false);
+		} else {
+			Destroy (gameObject);
 		}
+	}
 }
 

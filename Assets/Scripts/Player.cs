@@ -6,14 +6,14 @@ public class Player : MonoBehaviour, AlarmListener {
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
 	public float speed = 15.0f;
-	public KeyCode up, down, left, right, boost;
+	public KeyCode up, down, left, right, rollFall;
 	private Vector2 position;
     Animator animator;
 	public float speedBoost = 1.0f;
+	public GameObject deadAnimation;
 	private Alarm alarm;
     bool isMoving;
     bool isRolling = false;
-	private Ability activeAbility;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,6 @@ public class Player : MonoBehaviour, AlarmListener {
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
         alarm.setListener(this);
-		activeAbility = Ability.RollFall;
 	}
 	
 	// Update is called once per frame
@@ -54,8 +53,19 @@ public class Player : MonoBehaviour, AlarmListener {
 		}
 
 
-		if(Input.GetKeyDown(KeyCode.LeftControl)){
-			activateAbility();
+		if(Input.GetKeyDown(rollFall)){
+			Debug.Log ("rollfall");
+
+			if(energi.usePlayerEnergi(10)){
+				Debug.Log ("use player energi");
+				speedBoost = 2f;
+				isRolling = true;
+				boxCollider.center = new Vector2(0, -3);
+				boxCollider.size = new Vector2(7, 7);
+				alarm.clear();
+				alarm.addTimer(.5f, 0, false);
+				audio.Play();
+			}
 		} 
 
 		if (movement.x != x && movement.y != y) {
@@ -91,6 +101,11 @@ public class Player : MonoBehaviour, AlarmListener {
         animator.SetBool("isRolling", isRolling);
 	}
 
+	private void changeAbility(){
+		alarm.clear (); //annuller evt. activeret alarm
+		onAlarm (0); // kør alarmens afslutning
+	}
+
 	public void onAlarm(int i){
         boxCollider.center = new Vector2(0, 0);
         boxCollider.size = new Vector2(7, 13);
@@ -99,31 +114,11 @@ public class Player : MonoBehaviour, AlarmListener {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
+		Instantiate (deadAnimation, this.position, Quaternion.identity);
+
 		Destroy (col.gameObject);
 		Destroy (this.gameObject);
 	}
 
-	private void activateAbility(){
-		Debug.Log ("activate ability");
-		switch (activeAbility) {
-		case Ability.RollFall : 
-			Debug.Log ("rollfall");
-			if(energi.usePlayerEnergi(10)){
-				Debug.Log ("use player energi");
-				speedBoost = 2f;
-				isRolling = true;
-				boxCollider.center = new Vector2(0, -3);
-				boxCollider.size = new Vector2(7, 7);
-				alarm.clear();
-				alarm.addTimer(.5f, 0, false);
-			}
-			break;
-		default : 
-			break;
-		}
-	}
 
-	private enum Ability{
-		RollFall
-	}
 }
