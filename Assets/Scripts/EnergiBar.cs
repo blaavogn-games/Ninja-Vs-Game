@@ -43,6 +43,8 @@ public class EnergiBar : MonoBehaviour {
 			flash = true;
 		} else{
 			flash = false;
+			foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
+				SR.color = Color.white;
 		}
 
 		flashing();
