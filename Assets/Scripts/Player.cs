@@ -5,14 +5,14 @@ public class Player : MonoBehaviour, AlarmListener {
 	EnergiBar energi;
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
-	public float speed = 15.0f;
-	public float invisibilityTime = 2.0f;
+	public float speed = 15.0f, slow = 1;
 	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
     Animator animator;
 	public float speedBoost = 1.0f;
 	public GameObject deadAnimation;
 	private Alarm alarm;
+    int slowNum = 0;
     bool isMoving;
     bool isRolling = false;
 
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour, AlarmListener {
 				boxCollider.center = new Vector2(0, -3);
 				boxCollider.size = new Vector2(7, 7);
 				alarm.removeType((int) Ability.RollFall);
-				alarm.addTimer(invisibilityTime, (int)Ability.RollFall, false);
+				alarm.addTimer(.5f, (int)Ability.RollFall, false);
 				audio.Play();
 			}
 		} 
@@ -79,13 +79,13 @@ public class Player : MonoBehaviour, AlarmListener {
 		if (movement.x != x && movement.y != y) {
 			movement.x = (movement.x * Mathf.Sqrt(2))/2;
 			movement.y = (movement.y * Mathf.Sqrt(2))/2;
-			position += movement;
+			position += movement * slow;
 			transform.position = position;
 		} else if(movement.x != x ^ movement.y != y){
-			position += movement;
+            position += movement * slow;
 			transform.position = position;
         } else{
-			position += movement;
+            position += movement * slow;
 			transform.position = new Vector2 (Mathf.Round(position.x), Mathf.Round( position.y));
             isMoving = false;
 		}
@@ -107,6 +107,8 @@ public class Player : MonoBehaviour, AlarmListener {
         animator.SetFloat("ySpeed", movement.y);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isRolling", isRolling);
+
+        Debug.Log(slowNum);
 	}
 
 	public void onAlarm(int i){
@@ -122,11 +124,25 @@ public class Player : MonoBehaviour, AlarmListener {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		Instantiate (deadAnimation, this.position, Quaternion.identity);
 
-		Destroy (col.gameObject);
-		Destroy (this.gameObject);
+        if ("Slow".CompareTo(col.tag) == 0) {
+            slow = 0.8f;
+            slowNum++;
+        } else {
+            Instantiate(deadAnimation, this.position, Quaternion.identity);
+
+            Destroy(col.gameObject);
+            Destroy(this.gameObject);
+        }
 	}
+    void OnTriggerExit2D(Collider2D col){
+        if ("Slow".CompareTo(col.tag) == 0) {
+            slowNum--;
+            if (slowNum == 0) {
+                slow = 1f;
+            }
+        }
+    }
 
 	private enum Ability{
 		RollFall = 0, Invisibility =1

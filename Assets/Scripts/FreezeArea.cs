@@ -15,7 +15,7 @@ public class FreezeArea : MonoBehaviour {
         float trans = (meltTime < 4) ? 1 : 5 - meltTime;
 
         spriteRenderer.color = new Color(1, 1, 1, trans);
-        if (meltTime >= 5)
-            Destroy(gameObject);
+       // if (meltTime >= 5)
+       //     Destroy(gameObject);
     }
 }
