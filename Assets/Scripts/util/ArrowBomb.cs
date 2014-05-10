@@ -5,6 +5,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 	float angle = 0;
 	Alarm alarm;
 	bool flashSwitch = false;
+	public float blinktTime = .3f;
 	float blinkCounter = 0;
 	float shootCounter = 0;
 
@@ -27,13 +28,13 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			if (flashSwitch == false) {
 				renderer.material.color = Color.clear;
 				flashSwitch = true;
-				alarm.addTimer (0.3f, 0, false);
-				blinkCounter += 1;
+				alarm.addTimer (blinktTime, 0, false);
+				blinkCounter += 1; 	
 
 			} else {
 				renderer.material.color = Color.white;
 				flashSwitch = false;
-				alarm.addTimer (0.3f, 0, false);
+				alarm.addTimer (blinktTime, 0, false);
 				blinkCounter += 1;
 			}
 		}
