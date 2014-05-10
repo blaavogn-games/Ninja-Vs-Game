@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 	// Use this for initialization
 	void Start () {
+		position = transform.position;
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
 		alarm.setListener (this);
@@ -68,5 +69,10 @@ public class Player : MonoBehaviour, AlarmListener {
 	public void onAlarm(int i){
 		speedBoost = 1.0f;
 		Debug.Log ("alarm!!");
+	}
+
+	void OnTriggerEnter2D(Collider2D col){
+		Destroy (col.gameObject);
+		Destroy (this.gameObject);
 	}
 }
