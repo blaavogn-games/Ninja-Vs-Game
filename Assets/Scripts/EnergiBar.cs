@@ -23,7 +23,8 @@ public class EnergiBar : MonoBehaviour {
 		//Debug.Log (movePointer);
 		if (movePointerEveryXSec <= 0) {
 			movePointerEveryXSec = 1.5f;
-			pointer += 4;
+			if(pointer < size)
+				pointer += 4;
 		}
 		if (pointer > size) {
 			Debug.Log("GameMaster must die");
@@ -44,23 +45,8 @@ public class EnergiBar : MonoBehaviour {
 			flash = false;
 		}
 
-		if (flash) {
-			if(flashtimer >= 0.5f){
-				flashtimer = 0.0f;
-				toFlash = !toFlash;
-			}
-			else{
-				flashtimer += Time.deltaTime;
-			}
+		flashing();
 
-			if(toFlash){
-				foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
-					SR.color = Color.clear;
-			} else {
-				foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
-					SR.color = Color.white;
-			}
-		}
 	}
 
 	public bool usePlayerEnergi(int playerEnergi){
@@ -79,5 +65,23 @@ public class EnergiBar : MonoBehaviour {
 		return false;
 	}
 
-
+	private void flashing(){
+		if (flash) {
+			if(flashtimer >= 0.5f){
+				flashtimer = 0.0f;
+				toFlash = !toFlash;
+			}
+			else{
+				flashtimer += Time.deltaTime;
+			}
+			
+			if(toFlash){
+				foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
+					SR.color = Color.clear;
+			} else {
+				foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
+					SR.color = Color.white;
+			}
+		}
+	}
 }
