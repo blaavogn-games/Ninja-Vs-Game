@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ArrowBomb : MonoBehaviour, AlarmListener {
-	float angle = 0;
+	float angle = 90;
 	Alarm alarm;
 	bool flashSwitch = false;
 	public float blinktTime = .3f;
@@ -47,10 +47,11 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 
 
 	public void arrowBombExplode(){
-		if (shootCounter < 12) {
+		if (shootCounter < 13) {
 			Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
 			angle += 30f;
-			shootCounter += shootCounter + 1f;
+			Debug.Log(shootCounter);
+			shootCounter += 1f;
 			alarm.addTimer (0.2f, 1, false);
 		} else {
 			Destroy (gameObject);
