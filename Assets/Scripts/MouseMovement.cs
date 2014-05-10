@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class MouseMovement : MonoBehaviour {
+	EnergiBar energi;
 	Vector3 mousePosition;
 	float wobbleY = 0;
 	float wobbleX = 0;
@@ -14,14 +15,16 @@ public class MouseMovement : MonoBehaviour {
 	GUILayer test;
 	Vector3 deltaPos;
 	Vector3 lastPos;
-	
 	Vector3 lastMousePos;
+	private Ability activeAbility;
 
 
 
 	// Use this for initialization
 	void Start () {
+		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
+		activeAbility = Ability.SpreadBomb;
 	}
 	
 	// Update is called once per frame
@@ -39,8 +42,7 @@ public class MouseMovement : MonoBehaviour {
 		Debug.Log (deltaPos.x);
 
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
-			bulletTime = Time.time +fireRate;
-			Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+				activateAbility();
 			
 			
 			Debug.Log (bulletTime+" = bulletTime");
@@ -58,5 +60,20 @@ public class MouseMovement : MonoBehaviour {
 
 	}
 
+	private void activateAbility(){
+		switch (activeAbility) {
+		case Ability.SpreadBomb : 
+			if(energi.useGameMasterEnergi(10)){
+				bulletTime = Time.time +fireRate;
+				Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+			}
+			break;
+		}
 	}
+
+	private enum Ability{
+		SpreadBomb
+	}
+
+}
 	
