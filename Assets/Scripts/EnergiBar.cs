@@ -43,7 +43,7 @@ public class EnergiBar : MonoBehaviour {
 		
 		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
 
-		if(pointer >= size /4 * 3 || pointer <= size /4){
+		if(pointer >= size /4 * 3){
 			flash = true;
 		} else{
 			flash = false;
@@ -81,7 +81,7 @@ public class EnergiBar : MonoBehaviour {
 
 	private void flashing(){
 		if (flash) {
-			if(flashtimer >= 0.5f){
+			if(flashtimer >= 0.3f){
 				flashtimer = 0.0f;
 				toFlash = !toFlash;
 			}
