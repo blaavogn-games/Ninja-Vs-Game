@@ -8,6 +8,8 @@ public class MouseMovement : MonoBehaviour {
 	public float wobblefactor = 0.2f;
 	public GameObject spreadBomb;
 	float bulletTime= 0;
+	public float fireRate;
+	float momentum;
 
 
 
@@ -18,19 +20,18 @@ public class MouseMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton(0) && Time.deltaTime > bulletTime) {
-
+		if (Input.GetMouseButton(0) && Time.time > bulletTime) {
+			bulletTime = Time.time +fireRate;
 						Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
-			bulletTime= Time.deltaTime+ 500;	
+
 			
 			Debug.Log (bulletTime+" = bulletTime");
 		}
 
-		if(wobbleX > 4  | wobbleX < -4  | wobbleY > 4  | wobbleY < -4) 
-			wobblefactor *= -1;
 
-		wobbleX += wobblefactor;
-		wobbleY += wobblefactor/2;
+
+		wobbleX = Mathf.Sin(Time.time * wobbleY);
+		wobbleY = Mathf.Cos(Time.time * wobbleX);
 	
 		//GUI.DrawTexture (Rect(Input.mousePosition.x, Input.mousePosition.y, 32, 32,myCursor);
 	
