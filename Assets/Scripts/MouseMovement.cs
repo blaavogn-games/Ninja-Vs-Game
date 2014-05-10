@@ -8,6 +8,8 @@ public class MouseMovement : MonoBehaviour {
 	float wobbleX = 0;
 	public float wobblefactor = 0.2f;
 	public GameObject spreadBomb;
+
+
 	float bulletTime= 0;
 	public float fireRate;
 	GUILayer test;
@@ -37,13 +39,13 @@ public class MouseMovement : MonoBehaviour {
 		this.transform.position = new Vector3 (lastPos.x + wobbleX, lastPos.y + wobbleY, 0);
 		
 		
-		Debug.Log (deltaPos.x);
+		//Debug.Log (deltaPos.x);
 
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
 				activateAbility();
 			
 			
-			Debug.Log (bulletTime+" = bulletTime");
+		//	Debug.Log (bulletTime+" = bulletTime");
 		}
 
 		lastMousePos = mousePosition;

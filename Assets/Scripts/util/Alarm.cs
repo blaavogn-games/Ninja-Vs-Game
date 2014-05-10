@@ -32,6 +32,14 @@ public class Alarm : MonoBehaviour{
         timers.Add(new Timer(time, duration, type, repeat));
     }
 
+    public void removeType(int typeI) {
+        for(int i = timers.Count - 1; i >= 0; i--){
+            if (timers[i].type == typeI) {
+                timers.RemoveAt(i);
+            }
+        }
+    }
+
 	public void clear() {
 		timers.Clear ();
 	}

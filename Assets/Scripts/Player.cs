@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour, AlarmListener {
 	EnergiBar energi;
     BoxCollider2D boxCollider;
-    private readonly Vector2 min = new Vector2(-76, -54),max = new Vector2(76, 48);
+    private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
 	public float speed = 15.0f;
 	public KeyCode up, down, left, right, boost;
 	private Vector2 position;
