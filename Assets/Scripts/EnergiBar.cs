@@ -4,7 +4,7 @@ using System.Collections;
 public class EnergiBar : MonoBehaviour {
 	int pointer; //pointer er også playerens energi
 	public int size = 198;
-	public float movePointerEveryXSec = 3;
+	public float movePointerEveryXSec = 1;
 	public Transform adjust;
 
 	// Use this for initialization
