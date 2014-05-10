@@ -49,6 +49,7 @@ public class Player : MonoBehaviour, AlarmListener {
 			movement.x -= frameSpeed;
 		}
 
+
 		if(Input.GetKeyDown(KeyCode.LeftControl)){
 			speedBoost = 2f;
             isRolling = true;
