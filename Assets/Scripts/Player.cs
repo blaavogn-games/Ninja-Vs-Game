@@ -10,13 +10,15 @@ public class Player : MonoBehaviour, AlarmListener {
     Animator animator;
 	public float speedBoost = 1.0f;
 	private Alarm alarm;
+    bool isMoving;
+    bool isRolling = false;
 
 	// Use this for initialization
 	void Start () {
 		position = transform.position;
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
-		alarm.setListener (this);
+        alarm.setListener(this);
 	}
 	
 	// Update is called once per frame
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour, AlarmListener {
 		float frameSpeed = speed * speedBoost * Time.deltaTime;
 		float y = movement.y;
 		float x = movement.x;
+        isMoving = true;
+        
 
 		if(Input.GetKey(down)){
 			movement.y -= frameSpeed;
@@ -44,9 +48,11 @@ public class Player : MonoBehaviour, AlarmListener {
 			movement.x -= frameSpeed;
 		}
 
-		if(Input.GetKey(boost)){
-			speedBoost = 1.5f;
-			alarm.addTimer(1, 0, false);
+		if(Input.GetKeyDown(KeyCode.CapsLock)){
+            Debug.Log("HER");
+			speedBoost = 2f;
+            isRolling = true;
+			alarm.addTimer(.5f, 0, false);
 		} 
 
 		if (movement.x != x && movement.y != y) {
@@ -60,6 +66,7 @@ public class Player : MonoBehaviour, AlarmListener {
         } else{
 			position += movement;
 			transform.position = new Vector2 (Mathf.Round(position.x), Mathf.Round( position.y));
+            isMoving = false;
 		}
 
         if (position.x < -gameSize.x) {
@@ -73,14 +80,17 @@ public class Player : MonoBehaviour, AlarmListener {
         } else if (position.y > gameSize.y) {
             position.y = gameSize.y;
         }
-			transform.position = position;
-
+		transform.position = position;
+        
 		animator.SetFloat("xSpeed", movement.x);
         animator.SetFloat("ySpeed", movement.y);
+        animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isRolling", isRolling);
 	}
 
 	public void onAlarm(int i){
-		speedBoost = 1.0f;
+        speedBoost = 1.0f;
+        isRolling = false;
 		Debug.Log ("alarm!!");
 	}
 

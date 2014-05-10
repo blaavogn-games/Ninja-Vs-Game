@@ -24,10 +24,10 @@ public class MouseMovement : MonoBehaviour {
 	void Update () {
 		mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		
-		deltaPos = mousePosition - lastPos;
+		deltaPos =  mousePosition - lastPos;
 		
 		wobbleX = Mathf.Sin(Time.time) + deltaPos.x;
-		wobbleY = Mathf.Cos(Time.time) + deltaPos.y;
+		wobbleY = Mathf.Cos(Time.time ) + deltaPos.y;
 
 		this.transform.position = new Vector3 (mousePosition.x + wobbleX, mousePosition.y + wobbleY, 0);
 		
