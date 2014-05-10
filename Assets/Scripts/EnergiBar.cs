@@ -4,8 +4,11 @@ using System.Collections;
 public class EnergiBar : MonoBehaviour {
 	int pointer; //pointer er også playerens energi
 	public int size = 198;
-	public float movePointerEveryXSec = 1;
+	public float movePointerEveryXSec = 1.5f;
 	public Transform adjust;
+	private bool flash = false;
+	private bool toFlash = true;
+	private float flashtimer = 0.4f;
 
 	// Use this for initialization
 	void Start () {
@@ -13,14 +16,15 @@ public class EnergiBar : MonoBehaviour {
 		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		movePointerEveryXSec -= Time.deltaTime;
 		//Debug.Log (movePointer);
 		if (movePointerEveryXSec <= 0) {
-			movePointerEveryXSec = 3;
-			pointer += 4;
+			movePointerEveryXSec = 1.5f;
+			if(pointer < size)
+				pointer += 4;
 		}
 		if (pointer > size) {
 			Debug.Log("GameMaster must die");
@@ -34,6 +38,15 @@ public class EnergiBar : MonoBehaviour {
 		}
 		
 		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
+
+		if(pointer >= size /4 * 3 || pointer <= size /4){
+			flash = true;
+		} else{
+			flash = false;
+		}
+
+		flashing();
+
 	}
 
 	public bool usePlayerEnergi(int playerEnergi){
@@ -52,5 +65,23 @@ public class EnergiBar : MonoBehaviour {
 		return false;
 	}
 
-
+	private void flashing(){
+		if (flash) {
+			if(flashtimer >= 0.5f){
+				flashtimer = 0.0f;
+				toFlash = !toFlash;
+			}
+			else{
+				flashtimer += Time.deltaTime;
+			}
+			
+			if(toFlash){
+				foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
+					SR.color = Color.clear;
+			} else {
+				foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
+					SR.color = Color.white;
+			}
+		}
+	}
 }

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, AlarmListener {
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
 	public float speed = 15.0f, slow = 1;
+	public float invisibilityTime = 2f;
 	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
     Animator animator;
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour, AlarmListener {
 				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
 				SR.color = Color.clear;
 				alarm.removeType((int) Ability.Invisibility);
-				alarm.addTimer(2f, (int) Ability.Invisibility, false);
+				alarm.addTimer(invisibilityTime, (int) Ability.Invisibility, false);
 			}
 		}
 
