@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	private Alarm alarm;
     bool isMoving;
     bool isRolling = false;
+	private Ability activeAbility;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour, AlarmListener {
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
         alarm.setListener(this);
+		activeAbility = Ability.RollFall;
 	}
 	
 	// Update is called once per frame
@@ -53,12 +55,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 
 		if(Input.GetKeyDown(KeyCode.LeftControl)){
-			speedBoost = 2f;
-            isRolling = true;
-            boxCollider.center = new Vector2(0, -3);
-            boxCollider.size = new Vector2(7, 7);
-			alarm.clear();
-			alarm.addTimer(.5f, 0, false);
+			activateAbility();
 		} 
 
 		if (movement.x != x && movement.y != y) {
@@ -104,5 +101,29 @@ public class Player : MonoBehaviour, AlarmListener {
 	void OnTriggerEnter2D(Collider2D col){
 		Destroy (col.gameObject);
 		Destroy (this.gameObject);
+	}
+
+	private void activateAbility(){
+		Debug.Log ("activate ability");
+		switch (activeAbility) {
+		case Ability.RollFall : 
+			Debug.Log ("rollfall");
+			if(energi.usePlayerEnergi(10)){
+				Debug.Log ("use player energi");
+				speedBoost = 2f;
+				isRolling = true;
+				boxCollider.center = new Vector2(0, -3);
+				boxCollider.size = new Vector2(7, 7);
+				alarm.clear();
+				alarm.addTimer(.5f, 0, false);
+			}
+			break;
+		default : 
+			break;
+		}
+	}
+
+	private enum Ability{
+		RollFall
 	}
 }
