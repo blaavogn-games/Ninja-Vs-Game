@@ -3,22 +3,24 @@ using System.Collections;
 
 public class EnergiBar : MonoBehaviour {
 	int pointer; //pointer er også playerens energi
-	int size = 30;
-	float movePointer = 3;
+	public int size = 198;
+	public float movePointerEveryXSec = 3;
+	public Transform adjust;
 
 	// Use this for initialization
 	void Start () {
 		pointer = size / 2; //
-
+		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		movePointer -= Time.deltaTime;
-		if (movePointer <= 0) {
-			movePointer = 3;
-			pointer++;
+		movePointerEveryXSec -= Time.deltaTime;
+		//Debug.Log (movePointer);
+		if (movePointerEveryXSec <= 0) {
+			movePointerEveryXSec = 3;
+			pointer += 4;
 			Debug.Log("pointer is now" + pointer);
 		}
 		if (pointer > size) {
@@ -31,6 +33,8 @@ public class EnergiBar : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.R)){
 			Application.LoadLevel(0);
 		}
+		
+		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
 	}
 
 	bool usePlayerEnergi(int playerEnergi){
