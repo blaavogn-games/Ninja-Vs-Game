@@ -11,6 +11,9 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 	// Use this for initialization
 	void Start () {
 		alarm = GetComponent<Alarm> ();
+		if (alarm == null) {
+			alarm = gameObject.AddComponent<Alarm>();		
+		}
 		alarm.setListener (this);
 		alarm.addTimer (0.3f, 0, false);
 	}
