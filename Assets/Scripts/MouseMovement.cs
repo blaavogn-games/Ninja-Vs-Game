@@ -7,7 +7,8 @@ public class MouseMovement : MonoBehaviour {
 	float wobbleY = 0;
 	float wobbleX = 0;
 	public float wobblefactor = 0.2f;
-	public GameObject spreadBomb;
+	public GameObject arrowBomb;
+	public GameObject bomb;
 
 
 	float bulletTime= 0;
@@ -40,11 +41,27 @@ public class MouseMovement : MonoBehaviour {
 		//Debug.Log (deltaPos.x);
 
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
-				if(energi.useGameMasterEnergi(10)){
+				if(energi.useGameMasterEnergi(5)){
 					bulletTime = Time.time +fireRate;
-					Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+					Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
 				}
-			
+			else if (Input.GetMouseButton(2) && Time.time > bulletTime) {
+				if(energi.useGameMasterEnergi(20)){
+					bulletTime = Time.time +fireRate;
+					Instantiate (bomb, this.transform.position, Quaternion.identity);
+				}
+				else if (Input.GetMouseButton(1) && Time.time > bulletTime) {
+					Debug.Log (1);
+				}else if (Input.GetMouseButton(2) && Time.time > bulletTime) {
+					Debug.Log (2);
+				}else if (Input.GetMouseButton(3) && Time.time > bulletTime) {
+					Debug.Log (3);
+				}else if (Input.GetMouseButton(4) && Time.time > bulletTime) {
+					Debug.Log (4);
+				}else if (Input.GetMouseButton(0) && Time.time > bulletTime) {
+					Debug.Log (0);
+				}
+			}
 			
 		//	Debug.Log (bulletTime+" = bulletTime");
 		}
