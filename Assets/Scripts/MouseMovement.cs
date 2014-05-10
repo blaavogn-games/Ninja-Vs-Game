@@ -12,14 +12,15 @@ public class MouseMovement : MonoBehaviour {
 	GUILayer test;
 	Vector3 deltaPos;
 	Vector3 lastPos;
-	
 	Vector3 lastMousePos;
+	private Ability activeAbility;
 
 
 
 	// Use this for initialization
 	void Start () {
 		Screen.showCursor = false;
+		activeAbility = Ability.SpreadBomb;
 	}
 	
 	// Update is called once per frame
@@ -37,8 +38,7 @@ public class MouseMovement : MonoBehaviour {
 		Debug.Log (deltaPos.x);
 
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
-			bulletTime = Time.time +fireRate;
-			Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+				activateAbility();
 			
 			
 			Debug.Log (bulletTime+" = bulletTime");
@@ -56,5 +56,19 @@ public class MouseMovement : MonoBehaviour {
 
 	}
 
+	private void activateAbility(){
+		switch (activeAbility) {
+		case Ability.SpreadBomb : 
+
+			bulletTime = Time.time +fireRate;
+			Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+			break;
+		}
 	}
+
+	private enum Ability{
+		SpreadBomb
+	}
+
+}
 	
