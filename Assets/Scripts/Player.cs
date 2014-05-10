@@ -2,12 +2,14 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public float speed = 15.0f;
+	public float speed = 30.0f;
 	public KeyCode up, down, left, right;
 	private Vector2 position;
+    Animator animator;
+
 	// Use this for initialization
 	void Start () {
-	
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -36,12 +38,15 @@ public class Player : MonoBehaviour {
 		}
 
 		if (movement.x != x && movement.y != y) {
-			movement.x = (movement.x * Mathf.Sqrt(2))/2;
-			movement.y = (movement.y * Mathf.Sqrt(2))/2;
+			//movement.x = (movement.x * Mathf.Sqrt(2))/2;
+			//movement.y = (movement.y * Mathf.Sqrt(2))/2;
 			position += movement;
-		}
-		else
+		} else {
 			position += movement;
-		transform.position = new Vector2 ((int)position.x, (int) position.y);
+        }
+		transform.position = new Vector2 (Mathf.Round(position.x), Mathf.Round( position.y));
+        Debug.Log(transform.position);
+        animator.SetFloat("xSpeed", movement.x);
+        animator.SetFloat("ySpeed", movement.y);
 	}
 }
