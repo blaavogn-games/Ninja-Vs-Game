@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Player : MonoBehaviour, AlarmListener {
+
+    private readonly Vector2 gameSize = new Vector2(76, 54);
 	public float speed = 15.0f;
 	public KeyCode up, down, left, right, boost;
 	private Vector2 position;
@@ -59,10 +61,21 @@ public class Player : MonoBehaviour, AlarmListener {
 			position += movement;
 			transform.position = new Vector2 (Mathf.Round(position.x), Mathf.Round( position.y));
 		}
-		
-			
-        Debug.Log(transform.position);
-        animator.SetFloat("xSpeed", movement.x);
+
+        if (position.x < -gameSize.x) {
+            position.x = -gameSize.x;
+        } else if (position.x > gameSize.x) {
+            position.x = gameSize.x;
+        }
+
+        if (position.y < -gameSize.y) {
+            position.y = -gameSize.y;
+        } else if (position.y > gameSize.y) {
+            position.y = gameSize.y;
+        }
+			transform.position = position;
+
+		animator.SetFloat("xSpeed", movement.x);
         animator.SetFloat("ySpeed", movement.y);
 	}
 
