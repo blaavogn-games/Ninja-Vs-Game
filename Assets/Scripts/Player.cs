@@ -32,30 +32,28 @@ public class Player : MonoBehaviour, AlarmListener {
 		float y = movement.y;
 		float x = movement.x;
         isMoving = true;
-        
 
-		if(Input.GetKey(down)){
+
+        if (Input.GetKey(down) || Input.GetAxis("Vertical") < -.25f) {
 			movement.y -= frameSpeed;
 		}
 
-		
-		if(Input.GetKey(up)){
+
+        if (Input.GetKey(up) || Input.GetAxis("Vertical") >.25f) {
 			movement.y += frameSpeed;
 		}
-		
-		
-		if(Input.GetKey(right)){
+
+
+        if (Input.GetKey(right) || Input.GetAxis("Horizontal") > .25f) {
 			movement.x += frameSpeed;
 		}
-		
-		if(Input.GetKey(left)){
+
+        if (Input.GetKey(left) || Input.GetAxis("Horizontal") < -.25f) {
 			movement.x -= frameSpeed;
 		}
 
 
-		if(Input.GetKeyDown(rollFall)){
-			Debug.Log ("rollfall");
-
+        if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
 			if(energi.usePlayerEnergi(10)){
 				Debug.Log ("use player energi");
 				speedBoost = 2f;
