@@ -15,7 +15,7 @@ public class Bomb : MonoBehaviour, AlarmListener {
 			alarm = gameObject.AddComponent<Alarm>();		
 		}
 		alarm.setListener (this);
-		alarm.addTimer (0.1f, 3, false);
+		alarm.addTimer (0.001f, 3, false);
 	}
 	
 	public void onAlarm(int i){
@@ -27,7 +27,7 @@ public class Bomb : MonoBehaviour, AlarmListener {
 			alarm.addTimer (0.1f, 3, false);
 			blinkCounter += 1;
 		}else{
-			Instantiate (Resources.Load ("Bomb/BombExplosion"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, 0));
+			Instantiate (Resources.Load ("BombExplosion"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, 0));
 			Destroy (gameObject);
 		}
 	}

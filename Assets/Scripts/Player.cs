@@ -108,8 +108,6 @@ public class Player : MonoBehaviour, AlarmListener {
         animator.SetFloat("ySpeed", movement.y);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isRolling", isRolling);
-
-        Debug.Log(slowNum);
 	}
 
 	public void onAlarm(int i){

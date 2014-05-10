@@ -11,7 +11,6 @@ public class MouseMovement : MonoBehaviour {
 	public GameObject bomb;
 	public GameObject freezeBomb;
 	public KeyCode keyFreezeBomb;
-
 	float bulletTime = 0f;
 	public float fireRate;
 	GUILayer test;
@@ -48,21 +47,23 @@ public class MouseMovement : MonoBehaviour {
 				if(energi.useGameMasterEnergi(5)){
 					bulletTime = Time.time +fireRate;
 					Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
-				}
+                    energi.startGame();
+                }
 		}
 
 			 else if (Input.GetMouseButton(1) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(20)){
 					bulletTime = Time.time +fireRate;
 					Instantiate (bomb, this.transform.position, Quaternion.identity);
-					
+                    energi.startGame();
 					Debug.Log ("1");
 				}
 			}else if (Input.GetKeyDown(keyFreezeBomb) && Time.time > bulletTime) {
 			if(energi.useGameMasterEnergi(5)){
 				bulletTime = Time.time +fireRate;
 				Instantiate (freezeBomb, this.transform.position, Quaternion.identity);
-				}
+                energi.startGame();	
+            }
 			}
 			
 			
