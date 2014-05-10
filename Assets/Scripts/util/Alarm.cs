@@ -31,8 +31,12 @@ public class Alarm : MonoBehaviour{
     public void addTimer(float duration, int type, bool repeat) {
         timers.Add(new Timer(time, duration, type, repeat));
     }
+
+	public void clear() {
+		timers.Clear ();
+	}
     
-    class Timer {
+	class Timer {
         public float targetTime;
         public float duration;
         public int type;

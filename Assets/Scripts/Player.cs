@@ -33,7 +33,7 @@ public class Player : MonoBehaviour, AlarmListener {
 		if(Input.GetKey(down)){
 			movement.y -= frameSpeed;
 		}
-		
+
 		
 		if(Input.GetKey(up)){
 			movement.y += frameSpeed;
@@ -48,9 +48,11 @@ public class Player : MonoBehaviour, AlarmListener {
 			movement.x -= frameSpeed;
 		}
 
-		if(Input.GetKeyDown(KeyCode.CapsLock)){
+
+		if(Input.GetKeyDown(KeyCode.LeftControl)){
 			speedBoost = 2f;
             isRolling = true;
+			alarm.clear();
 			alarm.addTimer(.5f, 0, false);
 		} 
 
