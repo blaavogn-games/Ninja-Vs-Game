@@ -27,7 +27,7 @@ public class Bomb : MonoBehaviour, AlarmListener {
 			alarm.addTimer (0.5f, 3, false);
 			blinkCounter += 1;
 		}else{
-			Instantiate (Resources.Load ("BombExplosion"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, 0));
+			Instantiate (Resources.Load ("Bomb/BombExplosion"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, 0));
 			Destroy (gameObject);
 		}
 	}

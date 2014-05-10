@@ -24,6 +24,7 @@ public class MouseMovement : MonoBehaviour {
 	void Start () {
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
+		Debug.Log ("3");
 	}
 	
 	// Update is called once per frame
@@ -40,31 +41,26 @@ public class MouseMovement : MonoBehaviour {
 		
 		//Debug.Log (deltaPos.x);
 
+
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(5)){
 					bulletTime = Time.time +fireRate;
 					Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
 				}
-			else if (Input.GetMouseButton(2) && Time.time > bulletTime) {
+		}
+
+			 else if (Input.GetMouseButton(1) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(20)){
 					bulletTime = Time.time +fireRate;
 					Instantiate (bomb, this.transform.position, Quaternion.identity);
-				}
-				else if (Input.GetMouseButton(1) && Time.time > bulletTime) {
-					Debug.Log (1);
-				}else if (Input.GetMouseButton(2) && Time.time > bulletTime) {
-					Debug.Log (2);
-				}else if (Input.GetMouseButton(3) && Time.time > bulletTime) {
-					Debug.Log (3);
-				}else if (Input.GetMouseButton(4) && Time.time > bulletTime) {
-					Debug.Log (4);
-				}else if (Input.GetMouseButton(0) && Time.time > bulletTime) {
-					Debug.Log (0);
+					
+					Debug.Log ("1");
 				}
 			}
 			
+	
 		//	Debug.Log (bulletTime+" = bulletTime");
-		}
+		
 
 		lastMousePos = mousePosition;
 		lastPos = this.transform.position;
