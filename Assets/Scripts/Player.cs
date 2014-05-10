@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, AlarmListener {
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
 	public float speed = 15.0f;
+	public float invisibilityTime = 2.0f;
 	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
     Animator animator;
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour, AlarmListener {
 				boxCollider.center = new Vector2(0, -3);
 				boxCollider.size = new Vector2(7, 7);
 				alarm.removeType((int) Ability.RollFall);
-				alarm.addTimer(.5f, (int)Ability.RollFall, false);
+				alarm.addTimer(invisibilityTime, (int)Ability.RollFall, false);
 				audio.Play();
 			}
 		} 
