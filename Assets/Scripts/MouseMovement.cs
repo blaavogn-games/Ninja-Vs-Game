@@ -9,7 +9,6 @@ public class MouseMovement : MonoBehaviour {
 	public GameObject spreadBomb;
 	float bulletTime= 0;
 	public float fireRate;
-	float momentum;
 
 
 
@@ -22,16 +21,16 @@ public class MouseMovement : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButton(0) && Time.time > bulletTime) {
 			bulletTime = Time.time +fireRate;
-						Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
-
+			Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+			
 			
 			Debug.Log (bulletTime+" = bulletTime");
 		}
 
 
 
-		wobbleX = Mathf.Sin(Time.time * wobbleY);
-		wobbleY = Mathf.Cos(Time.time * wobbleX);
+		wobbleX = Mathf.Sin(Time.time *3);
+		wobbleY = Mathf.Cos(Time.time * 2);
 	
 		//GUI.DrawTexture (Rect(Input.mousePosition.x, Input.mousePosition.y, 32, 32,myCursor);
 	
