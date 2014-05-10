@@ -113,6 +113,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	void OnTriggerEnter2D(Collider2D col){
 		Destroy (col.gameObject);
 		Destroy (this.gameObject);
+		audio.Play ();
 	}
 
 
