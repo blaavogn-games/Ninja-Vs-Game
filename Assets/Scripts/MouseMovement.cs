@@ -16,7 +16,6 @@ public class MouseMovement : MonoBehaviour {
 	Vector3 deltaPos;
 	Vector3 lastPos;
 	Vector3 lastMousePos;
-	private Ability activeAbility;
 
 
 
