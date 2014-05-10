@@ -35,7 +35,6 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			}
 		}
 		else{
-			renderer.material.color = Color.clear;
 			arrowBombExplode();
 		}
 	}
@@ -46,6 +45,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 						Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
 						angle += 30f;
 				}
+		Destroy (gameObject);
 		}
 }
 
