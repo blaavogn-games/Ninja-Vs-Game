@@ -47,11 +47,14 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 
 
 	public void arrowBombExplode(){
-				for (var i = 12; i > 0; i--) {
-						Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
-						angle += 30f;
-				}
-		Destroy (gameObject);
+		if (shootCounter < 12) {
+			Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
+			angle += 30f;
+			shootCounter += shootCounter + 1f;
+			alarm.addTimer (0.2f, 1, false);
+		} else {
+			Destroy (gameObject);
 		}
+	}
 }
 

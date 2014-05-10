@@ -19,8 +19,8 @@ public class ControllerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		 bossWinsText.text = "";
-		 ninjaWinsText.text  = "";
-		restartTxt.text = "";
+         ninjaWinsText.text = "";
+         restartTxt.text = "";
 
 		
 	}
