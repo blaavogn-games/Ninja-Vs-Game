@@ -30,6 +30,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 				flashSwitch = true;
 				alarm.addTimer (blinktTime, 0, false);
 				blinkCounter += 1; 	
+				audio.Play ();
 
 			} else {
 				renderer.material.color = Color.white;
@@ -40,6 +41,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 		}
 		else{
 			arrowBombExplode();
+
 		}
 	}
 
