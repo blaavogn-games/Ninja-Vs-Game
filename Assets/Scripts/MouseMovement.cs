@@ -9,9 +9,10 @@ public class MouseMovement : MonoBehaviour {
 	public float wobblefactor = 0.2f;
 	public GameObject arrowBomb;
 	public GameObject bomb;
+	public GameObject freezeBomb;
+	public KeyCode keyFreezeBomb;
 
-
-	float bulletTime= 0;
+	float bulletTime = 0f;
 	public float fireRate;
 	GUILayer test;
 	Vector3 deltaPos;
@@ -56,10 +57,15 @@ public class MouseMovement : MonoBehaviour {
 					
 					Debug.Log ("1");
 				}
+			}else if (Input.GetKeyDown(keyFreezeBomb) && Time.time > bulletTime) {
+			if(energi.useGameMasterEnergi(5)){
+				bulletTime = Time.time +fireRate;
+				Instantiate (freezeBomb, this.transform.position, Quaternion.identity);
+				}
 			}
 			
-	
-		//	Debug.Log (bulletTime+" = bulletTime");
+			
+			//	Debug.Log (bulletTime+" = bulletTime");
 		
 
 		lastMousePos = mousePosition;
@@ -73,7 +79,4 @@ public class MouseMovement : MonoBehaviour {
 
 
 	}
-
-
 }
-	
