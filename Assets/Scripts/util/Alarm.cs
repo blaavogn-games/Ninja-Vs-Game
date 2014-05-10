@@ -16,7 +16,7 @@ public class Alarm : MonoBehaviour{
         
         for (int i = timers.Count - 1; i >= 0; i-- ){
             Timer t = timers[i];
-        
+
             if (t.targetTime <= time) {
                 listener.onAlarm(t.type);
                 if (t.repeat){
@@ -33,7 +33,8 @@ public class Alarm : MonoBehaviour{
     }
     
     class Timer {
-        public float targetTime, duration;
+        public float targetTime;
+        public float duration;
         public int type;
         public bool repeat;
 

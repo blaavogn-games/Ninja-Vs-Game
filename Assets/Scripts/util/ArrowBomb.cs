@@ -8,13 +8,14 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 	// Use this for initialization
 	void Start () {
 		alarm = GetComponent<Alarm> ();
-		alarm.setListener (this);
+        alarm.setListener(this);
+        alarm.addTimer(1, 2, false);
+        Debug.Log("Hej");
 		//StartCoroutine(animationBFexplode());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		alarm.addTimer (1, 2, false);
 	}
 
 	public void onAlarm(int i){
