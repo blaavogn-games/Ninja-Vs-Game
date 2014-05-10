@@ -12,6 +12,8 @@ public class MouseMovement : MonoBehaviour {
 	GUILayer test;
 	Vector3 deltaPos;
 	Vector3 lastPos;
+	
+	Vector3 lastMousePos;
 
 
 
@@ -24,12 +26,12 @@ public class MouseMovement : MonoBehaviour {
 	void Update () {
 		mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		
-		deltaPos =  mousePosition - lastPos;
+		deltaPos =  mousePosition - lastMousePos;
 		
-		wobbleX = Mathf.Sin(Time.time) + deltaPos.x;
-		wobbleY = Mathf.Cos(Time.time ) + deltaPos.y;
+		wobbleX = Mathf.Sin (Time.time) / 5 + 0.5f * deltaPos.x;//*deltaPos.x;
+		wobbleY = Mathf.Cos (Time.time) / 5 + 0.5f * deltaPos.y;//*deltaPos.y;
 
-		this.transform.position = new Vector3 (mousePosition.x + wobbleX, mousePosition.y + wobbleY, 0);
+		this.transform.position = new Vector3 (lastPos.x + wobbleX, lastPos.y + wobbleY, 0);
 		
 		
 		Debug.Log (deltaPos.x);
@@ -42,6 +44,7 @@ public class MouseMovement : MonoBehaviour {
 			Debug.Log (bulletTime+" = bulletTime");
 		}
 
+		lastMousePos = mousePosition;
 		lastPos = this.transform.position;
 
 	
