@@ -8,6 +8,7 @@ public class FreezeBomb : MonoBehaviour, AlarmListener {
         alarm = GetComponent<Alarm>();
         alarm.setListener(this);
         alarm.addTimer(.1f, 0, true);
+        alarm.addTimer(1.5f, 1, true);
 	}
 
     void Update() {
@@ -15,7 +16,11 @@ public class FreezeBomb : MonoBehaviour, AlarmListener {
     }
 
     public void onAlarm(int i) {
-        Instantiate(Resources.Load("FreezeArea"), transform.position, Quaternion.identity);
+        Vector2 spawnPos = new Vector2((int)transform.position.x , (int) transform.position.y);
+
+        Instantiate(Resources.Load("FreezeArea"), spawnPos, Quaternion.identity);
+        if (i == 1)
+            Destroy(gameObject);
     }
 	
 }
