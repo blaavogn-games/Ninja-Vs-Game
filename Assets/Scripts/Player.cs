@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Player : MonoBehaviour, AlarmListener {
-
+	EnergiBar energi;
     private readonly Vector2 gameSize = new Vector2(76, 54);
 	public float speed = 15.0f;
 	public KeyCode up, down, left, right, boost;
@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 	// Use this for initialization
 	void Start () {
+		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		position = transform.position;
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour, AlarmListener {
 		if(Input.GetKey(down)){
 			movement.y -= frameSpeed;
 		}
-		
+
 		
 		if(Input.GetKey(up)){
 			movement.y += frameSpeed;
@@ -48,10 +49,11 @@ public class Player : MonoBehaviour, AlarmListener {
 			movement.x -= frameSpeed;
 		}
 
-		if(Input.GetKeyDown(KeyCode.CapsLock)){
-            Debug.Log("HER");
+
+		if(Input.GetKeyDown(KeyCode.LeftControl)){
 			speedBoost = 2f;
             isRolling = true;
+			alarm.clear();
 			alarm.addTimer(.5f, 0, false);
 		} 
 
