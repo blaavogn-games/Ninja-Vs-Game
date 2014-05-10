@@ -92,7 +92,6 @@ public class Player : MonoBehaviour, AlarmListener {
 	public void onAlarm(int i){
         speedBoost = 1.0f;
         isRolling = false;
-		Debug.Log ("alarm!!");
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
