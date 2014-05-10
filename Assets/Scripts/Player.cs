@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Player : MonoBehaviour, AlarmListener {
-
+	EnergiBar energi;
     private readonly Vector2 gameSize = new Vector2(76, 54);
 	public float speed = 15.0f;
 	public KeyCode up, down, left, right, boost;
@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 	// Use this for initialization
 	void Start () {
+		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		position = transform.position;
         animator = GetComponent<Animator>();
 		alarm = GetComponent<Alarm>();
