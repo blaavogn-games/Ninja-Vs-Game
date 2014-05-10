@@ -57,7 +57,6 @@ public class Player : MonoBehaviour, AlarmListener {
 
         if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
 			if(energi.usePlayerEnergi(10)){
-				Debug.Log ("use player energi");
 				speedBoost = 2f;
 				isRolling = true;
 				boxCollider.center = new Vector2(0, -3);

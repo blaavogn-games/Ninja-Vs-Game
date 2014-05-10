@@ -9,7 +9,7 @@ public class EnergiBar : MonoBehaviour {
 	private bool flash = false;
 	private bool toFlash = true;
 	private float flashtimer = 0.4f;
-    bool gameStarted = false;
+    bool gameStarted = false, gameEnded = false;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +20,7 @@ public class EnergiBar : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (!gameStarted)
+        if (!gameStarted || gameEnded)
             return;
 
 		movePointerEveryXSec -= Time.deltaTime;
@@ -31,7 +31,7 @@ public class EnergiBar : MonoBehaviour {
 				pointer += 4;
 		}
 		if (pointer > size) {
-			Debug.Log("GameMaster must die");
+            gameEnded = true;
 
 		}else if (pointer < 0){
 			Debug.Log("Player must die"); 
@@ -57,8 +57,12 @@ public class EnergiBar : MonoBehaviour {
         gameStarted = true;
     }
 
+    public void endGame() {
+        gameEnded = true;
+    }
+
 	public bool usePlayerEnergi(int playerEnergi){
-        if (!gameStarted) {
+        if (!gameStarted || gameEnded) {
             return true;
         }
         
