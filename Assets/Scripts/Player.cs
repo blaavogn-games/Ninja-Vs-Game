@@ -49,7 +49,6 @@ public class Player : MonoBehaviour, AlarmListener {
 		}
 
 		if(Input.GetKeyDown(KeyCode.CapsLock)){
-            Debug.Log("HER");
 			speedBoost = 2f;
             isRolling = true;
 			alarm.addTimer(.5f, 0, false);
