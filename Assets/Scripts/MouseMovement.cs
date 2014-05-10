@@ -23,6 +23,7 @@ public class MouseMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Screen.showCursor = false;
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
 		Debug.Log ("3");
