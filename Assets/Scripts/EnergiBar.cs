@@ -37,16 +37,16 @@ public class EnergiBar : MonoBehaviour {
 		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
 	}
 
-	bool usePlayerEnergi(int playerEnergi){
-		if (playerEnergi >= pointer){
+	public bool usePlayerEnergi(int playerEnergi){
+		if (playerEnergi <= pointer){
 			pointer -= playerEnergi;
 			return true;
 		}
 		return false;
 	}
 
-	bool useGameMasterEnergi(int gameMasterEnergi){
-		if(gameMasterEnergi >= (size - pointer)){
+	public bool useGameMasterEnergi(int gameMasterEnergi){
+		if(gameMasterEnergi <= (size - pointer)){
 			pointer += gameMasterEnergi;
 			return true;
 		}
