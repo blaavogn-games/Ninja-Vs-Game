@@ -21,7 +21,6 @@ public class EnergiBar : MonoBehaviour {
 		if (movePointerEveryXSec <= 0) {
 			movePointerEveryXSec = 3;
 			pointer += 4;
-			Debug.Log("pointer is now" + pointer);
 		}
 		if (pointer > size) {
 			Debug.Log("GameMaster must die");
