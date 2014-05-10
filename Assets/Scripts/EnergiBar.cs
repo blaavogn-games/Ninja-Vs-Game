@@ -9,6 +9,7 @@ public class EnergiBar : MonoBehaviour {
 	private bool flash = false;
 	private bool toFlash = true;
 	private float flashtimer = 0.4f;
+    bool gameStarted = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +20,9 @@ public class EnergiBar : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if (!gameStarted)
+            return;
+
 		movePointerEveryXSec -= Time.deltaTime;
 		//Debug.Log (movePointer);
 		if (movePointerEveryXSec <= 0) {
@@ -49,8 +53,16 @@ public class EnergiBar : MonoBehaviour {
 
 	}
 
+    public void startGame() {
+        gameStarted = true;
+    }
+
 	public bool usePlayerEnergi(int playerEnergi){
-		if (playerEnergi <= pointer){
+        if (!gameStarted) {
+            return true;
+        }
+        
+        if (playerEnergi <= pointer){
 			pointer -= playerEnergi;
 			return true;
 		}
