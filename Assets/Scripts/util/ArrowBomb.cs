@@ -4,48 +4,48 @@ using System.Collections;
 public class ArrowBomb : MonoBehaviour, AlarmListener {
 	float angle = 0;
 	Alarm alarm;
+	bool flashSwitch = false;
+	float blinkCounter = 0;
+	float shootCounter = 0;
 
 	// Use this for initialization
 	void Start () {
 		alarm = GetComponent<Alarm> ();
-        alarm.setListener(this);
-        alarm.addTimer(1, 2, false);
-        Debug.Log("Hej");
-		//StartCoroutine(animationBFexplode());
+		alarm.setListener (this);
+		alarm.addTimer (0.3f, 0, false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
-
+	
 	public void onAlarm(int i){
-		alarm.addTimer (1, 2, false);
-		Debug.Log (i);
-	}
-
-	/*public IEnumerator animationBFexplode(){
-
-		bool flashSwitch = false;
-		for (var j = 0; j < 4; j++) {
-			if (flashSwitch){
-				renderer.material.color = Color.blue;
+		if (i == 0 && blinkCounter < 6) {
+			if (flashSwitch == false) {
+				renderer.material.color = Color.clear;
 				flashSwitch = true;
-			}
-			else{
+				alarm.addTimer (0.3f, 0, false);
+				blinkCounter += 1;
+
+			} else {
 				renderer.material.color = Color.white;
 				flashSwitch = false;
+				alarm.addTimer (0.3f, 0, false);
+				blinkCounter += 1;
 			}
-			yield return new WaitForSeconds(0.5f);
-
-				}
+		}
+		else{
 			arrowBombExplode();
 		}
+	}
+
 
 	public void arrowBombExplode(){
-
-		for (var i = 12; i > 0; i--) {
-		Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3(0, 0), Quaternion.Euler(0,0,angle));
-			angle += 30f;
+				for (var i = 12; i > 0; i--) {
+						Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
+						angle += 30f;
+				}
+		Destroy (gameObject);
 		}
-	}*/
 }
+
