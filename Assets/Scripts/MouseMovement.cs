@@ -16,7 +16,6 @@ public class MouseMovement : MonoBehaviour {
 	Vector3 deltaPos;
 	Vector3 lastPos;
 	Vector3 lastMousePos;
-	private Ability activeAbility;
 
 
 
@@ -24,7 +23,6 @@ public class MouseMovement : MonoBehaviour {
 	void Start () {
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
-		activeAbility = Ability.SpreadBomb;
 	}
 	
 	// Update is called once per frame
