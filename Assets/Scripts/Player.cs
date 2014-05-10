@@ -6,7 +6,7 @@ public class Player : MonoBehaviour, AlarmListener {
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
 	public float speed = 15.0f;
-	public KeyCode up, down, left, right, rollFall;
+	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
     Animator animator;
 	public float speedBoost = 1.0f;
@@ -32,41 +32,48 @@ public class Player : MonoBehaviour, AlarmListener {
 		float y = movement.y;
 		float x = movement.x;
         isMoving = true;
-        
 
-		if(Input.GetKey(down)){
+
+        if (Input.GetKey(down) || Input.GetAxis("Vertical") < -.25f) {
 			movement.y -= frameSpeed;
 		}
 
-		
-		if(Input.GetKey(up)){
+
+        if (Input.GetKey(up) || Input.GetAxis("Vertical") >.25f) {
 			movement.y += frameSpeed;
 		}
-		
-		
-		if(Input.GetKey(right)){
+
+
+        if (Input.GetKey(right) || Input.GetAxis("Horizontal") > .25f) {
 			movement.x += frameSpeed;
 		}
-		
-		if(Input.GetKey(left)){
+
+        if (Input.GetKey(left) || Input.GetAxis("Horizontal") < -.25f) {
 			movement.x -= frameSpeed;
 		}
 
 
-		if(Input.GetKeyDown(rollFall)){
-			Debug.Log ("rollfall");
-
+        if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
 			if(energi.usePlayerEnergi(10)){
 				Debug.Log ("use player energi");
 				speedBoost = 2f;
 				isRolling = true;
 				boxCollider.center = new Vector2(0, -3);
 				boxCollider.size = new Vector2(7, 7);
-				alarm.clear();
-				alarm.addTimer(.5f, 0, false);
+				alarm.removeType((int) Ability.RollFall);
+				alarm.addTimer(.5f, (int)Ability.RollFall, false);
 				audio.Play();
 			}
 		} 
+
+		if(Input.GetKeyDown(invisibility)){
+			if(energi.usePlayerEnergi(30)){
+				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
+				SR.color = Color.clear;
+				alarm.removeType((int) Ability.Invisibility);
+				alarm.addTimer(2f, (int) Ability.Invisibility, false);
+			}
+		}
 
 		if (movement.x != x && movement.y != y) {
 			movement.x = (movement.x * Mathf.Sqrt(2))/2;
@@ -101,16 +108,16 @@ public class Player : MonoBehaviour, AlarmListener {
         animator.SetBool("isRolling", isRolling);
 	}
 
-	private void changeAbility(){
-		alarm.clear (); //annuller evt. activeret alarm
-		onAlarm (0); // kør alarmens afslutning
-	}
-
 	public void onAlarm(int i){
-        boxCollider.center = new Vector2(0, 0);
-        boxCollider.size = new Vector2(7, 13);
-        speedBoost = 1.0f;
-        isRolling = false;
+		if(i ==(int) Ability.RollFall){
+	        boxCollider.center = new Vector2(0, 0);
+	        boxCollider.size = new Vector2(7, 13);
+	        speedBoost = 1.0f;
+	        isRolling = false;
+		} else if (i == (int) Ability.Invisibility){
+			SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
+			SR.color = Color.white;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
@@ -120,5 +127,8 @@ public class Player : MonoBehaviour, AlarmListener {
 		Destroy (this.gameObject);
 	}
 
+	private enum Ability{
+		RollFall = 0, Invisibility =1
+	}
 
 }
