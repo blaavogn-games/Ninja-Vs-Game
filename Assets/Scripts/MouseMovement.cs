@@ -42,7 +42,10 @@ public class MouseMovement : MonoBehaviour {
 		//Debug.Log (deltaPos.x);
 
 			if (Input.GetMouseButton(0) && Time.time > bulletTime) {
-				activateAbility();
+				if(energi.useGameMasterEnergi(10)){
+					bulletTime = Time.time +fireRate;
+					Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
+				}
 			
 			
 		//	Debug.Log (bulletTime+" = bulletTime");
@@ -60,20 +63,6 @@ public class MouseMovement : MonoBehaviour {
 
 	}
 
-	private void activateAbility(){
-		switch (activeAbility) {
-		case Ability.SpreadBomb : 
-			if(energi.useGameMasterEnergi(10)){
-				bulletTime = Time.time +fireRate;
-				Instantiate (spreadBomb, this.transform.position, Quaternion.identity);
-			}
-			break;
-		}
-	}
-
-	private enum Ability{
-		SpreadBomb
-	}
 
 }
 	
