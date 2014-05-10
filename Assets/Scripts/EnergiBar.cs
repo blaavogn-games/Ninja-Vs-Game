@@ -10,6 +10,7 @@ public class EnergiBar : MonoBehaviour {
 	void Start () {
 		pointer = size / 2; //
 
+
 	}
 	
 	// Update is called once per frame
@@ -25,6 +26,10 @@ public class EnergiBar : MonoBehaviour {
 
 		}else if (pointer < 0){
 			Debug.Log("Player must die"); 
+		}
+		
+		if(Input.GetKeyDown(KeyCode.R)){
+			Application.LoadLevel(0);
 		}
 	}
 
