@@ -23,7 +23,6 @@ public class MouseMovement : MonoBehaviour {
 	void Start () {
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 		Screen.showCursor = false;
-		activeAbility = Ability.SpreadBomb;
 	}
 	
 	// Update is called once per frame
