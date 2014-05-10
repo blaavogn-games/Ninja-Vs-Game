@@ -13,7 +13,6 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 		alarm = GetComponent<Alarm> ();
 		alarm.setListener (this);
 		alarm.addTimer (0.3f, 0, false);
-		//StartCoroutine(animationBFexplode());
 	}
 	
 	// Update is called once per frame
