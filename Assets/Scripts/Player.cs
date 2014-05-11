@@ -55,7 +55,6 @@ public class Player : MonoBehaviour, AlarmListener {
 
         if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
 			if(energi.usePlayerEnergi(10)){
-				Debug.Log ("use player energi");
 				speedBoost = 2f;
 				isRolling = true;
 				boxCollider.center = new Vector2(0, -3);
@@ -68,6 +67,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
         if (Input.GetKeyDown(invisibility) || Input.GetButtonDown("Inv")) {
 			if(energi.usePlayerEnergi(30)){
+
 				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
 				SR.color = Color.clear;
 				alarm.removeType((int) Ability.Invisibility);
