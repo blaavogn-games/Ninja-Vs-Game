@@ -34,8 +34,6 @@ public class Player : MonoBehaviour, AlarmListener {
 		float y = movement.y;
 		float x = movement.x;
         isMoving = true;
-
-
         if (Input.GetKey(down) || Input.GetAxis("Vertical") < -.25f) {
 			movement.y -= frameSpeed;
 		}
@@ -66,9 +64,9 @@ public class Player : MonoBehaviour, AlarmListener {
 				alarm.addTimer(.5f, (int)Ability.RollFall, false);
 				audio.Play();
 			}
-		} 
+		}
 
-		if(Input.GetKeyDown(invisibility)){
+        if (Input.GetKeyDown(invisibility) || Input.GetButtonDown("Inv")) {
 			if(energi.usePlayerEnergi(30)){
 				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
 				SR.color = Color.clear;
@@ -129,6 +127,7 @@ public class Player : MonoBehaviour, AlarmListener {
             slowNum++;
         } else {
             Instantiate(deadAnimation, this.position, Quaternion.identity);
+            Instantiate(Resources.Load("sprites/gui/preGameWins"));
 			if(!col.gameObject.tag.Equals("Explosions"))
             	Destroy(col.gameObject);
             Destroy(this.gameObject);
