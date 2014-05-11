@@ -133,4 +133,8 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 		Debug.Log ("dsfsdf");
 		Instantiate(Resources.Load("sprites/gui/prePlayerWins"));
 	}
+
+	public void gameEnd(){
+		gameEnded = true;
+	}
 }

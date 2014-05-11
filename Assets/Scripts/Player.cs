@@ -131,6 +131,7 @@ public class Player : MonoBehaviour, AlarmListener {
         } else {
             Instantiate(deadAnimation, this.position, Quaternion.identity);
             Instantiate(Resources.Load("sprites/gui/preGameWins"));
+			energi.endGame();
 			if(!col.gameObject.tag.Equals("Explosions"))
             	Destroy(col.gameObject);
             Destroy(this.gameObject);
