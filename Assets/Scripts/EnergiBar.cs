@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnergiBar : MonoBehaviour {
 	int pointer; //pointer er også playerens energi
-	public int size = 198;
+	private int size = 238;
 	public float movePointerEveryXSec = 1.5f;
 	public Transform adjust;
 	private bool flash = false;
