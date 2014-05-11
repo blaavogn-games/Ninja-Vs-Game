@@ -14,7 +14,7 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 	public AudioClip iWillNeverDie;
 	public AudioClip bossDie;
 	bool haveLaughed;
-	bool haveDied;
+	bool haveDied = false;
 	bool haveNever;
 
     
