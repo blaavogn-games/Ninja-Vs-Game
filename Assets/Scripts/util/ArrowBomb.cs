@@ -2,15 +2,21 @@
 using System.Collections;
 
 public class ArrowBomb : MonoBehaviour, AlarmListener {
-	float angle = 90;
+	float angle;
 	Alarm alarm;
 	bool flashSwitch = false;
-	public float blinktTime = .3f;
-	float blinkCounter = 0;
-	float shootCounter = 0;
+	public float blinktTime;
+	float blinkCounter;
+	float shootCounter;
 
 	// Use this for initialization
 	void Start () {
+		blinktTime = 0.3f;
+		angle = 90f;
+		blinkCounter = 0f;
+		shootCounter = 0f;
+
+
 		alarm = GetComponent<Alarm> ();
 		if (alarm == null) {
 			alarm = gameObject.AddComponent<Alarm>();		
@@ -53,7 +59,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			shootCounter += 1f;
 			alarm.addTimer (0.2f, 1, false);
 		} else {
-			Destroy (gameObject);
+			Start();
 		}
 	}
 }
