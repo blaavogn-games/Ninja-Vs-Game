@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnergiBar : MonoBehaviour {
+public class EnergiBar : MonoBehaviour, AlarmListener {
 	int pointer; //pointer er også playerens energi
 	private int size = 238;
 	public float movePointerEveryXSec = 1.5f;
@@ -13,6 +13,10 @@ public class EnergiBar : MonoBehaviour {
 	public AudioClip laughatPunyHuman;
 	public AudioClip iWillNeverDie;
 	public AudioClip bossDie;
+	bool haveLaughed;
+	bool haveDied = false;
+	bool haveNever;
+
     
 
 	// Use this for initialization
@@ -20,7 +24,7 @@ public class EnergiBar : MonoBehaviour {
 		pointer = size / 2; //
         adjust.localScale = new Vector3(pointer / 4, 1, 0);
         Screen.showCursor = false;
-
+		GetComponent<Alarm> ().setListener (this);
 	}
 
 	// Update is called once per frame
@@ -32,15 +36,17 @@ public class EnergiBar : MonoBehaviour {
 		//Debug.Log (movePointer);
 		if (movePointerEveryXSec <= 0) {
 			movePointerEveryXSec = 1.5f;
-			if(pointer < size)
+			if(pointer < size && !gameEnded)
 				pointer += 4;
 		}
 		if (pointer > size) {
             gameEnded = true;
-            Instantiate(Resources.Load("sprites/gui/prePlayerWins"));
-		}else if (pointer < 0){
-            pointer = 0;
-            Debug.Log("Player must die"); 
+			if(!haveDied){
+				audio.PlayOneShot(bossDie);
+				haveDied = true;
+			}
+			GetComponent<Alarm>().addTimer(4, 0, false);
+            
 		}
 		
 		if(Input.GetKeyDown(KeyCode.R)){
@@ -51,8 +57,17 @@ public class EnergiBar : MonoBehaviour {
 
 		if(pointer >= size /4 * 3){
 			flash = true;
-		} else{
-			flash = false;
+			if(!haveNever){
+				audio.PlayOneShot(iWillNeverDie);
+				haveNever = true;
+			}
+		} else if (pointer < size / 4){
+			if(!haveLaughed){
+				audio.PlayOneShot(laughatPunyHuman);
+				haveLaughed = true;
+			}
+		} else {
+				flash = false;
 			foreach(SpriteRenderer SR in GetComponentsInChildren<SpriteRenderer>())
 				SR.color = Color.white;
 		}
@@ -82,6 +97,10 @@ public class EnergiBar : MonoBehaviour {
 	}
 
 	public bool useGameMasterEnergi(int gameMasterEnergi){
+		if(gameEnded && !haveDied){
+			return true;
+		}
+
 		if(gameMasterEnergi <= (size - pointer)){
 			pointer += gameMasterEnergi;
 			return true;
@@ -107,5 +126,11 @@ public class EnergiBar : MonoBehaviour {
 					SR.color = Color.white;
 			}
 		}
+	}
+
+	public void onAlarm(int i)
+	{
+		Debug.Log ("dsfsdf");
+		Instantiate(Resources.Load("sprites/gui/prePlayerWins"));
 	}
 }
