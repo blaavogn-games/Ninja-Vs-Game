@@ -129,8 +129,8 @@ public class Player : MonoBehaviour, AlarmListener {
             slowNum++;
         } else {
             Instantiate(deadAnimation, this.position, Quaternion.identity);
-
-            Destroy(col.gameObject);
+			if(!col.gameObject.tag.Equals("Explosion"))
+            	Destroy(col.gameObject);
             Destroy(this.gameObject);
         }
 	}
