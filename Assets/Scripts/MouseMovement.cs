@@ -17,10 +17,13 @@ public class MouseMovement : MonoBehaviour {
 	Vector3 deltaPos;
 	Vector3 lastPos;
 	Vector3 lastMousePos;
+    GameObject[] towers;
+    int towerIndex = 0;
     
 
 	// Use this for initialization
 	void Start () {
+        towers = new GameObject[3];
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 	}
 	
@@ -30,26 +33,34 @@ public class MouseMovement : MonoBehaviour {
 		
 		deltaPos =  mousePosition - lastMousePos;
 		
-		wobbleX = Mathf.Sin (Time.time) / 5 + 0.5f * deltaPos.x;//*deltaPos.x;
-		wobbleY = Mathf.Cos (Time.time) / 5 + 0.5f * deltaPos.y;//*deltaPos.y;
+		wobbleX = Mathf.Sin (Time.time)*3 ;//*deltaPos.x;
+		wobbleY = Mathf.Cos (Time.time)*3 ;//*deltaPos.y;
 
-		this.transform.position = new Vector3 (lastPos.x + wobbleX, lastPos.y + wobbleY, 0);
+        this.transform.position = new Vector3(mousePosition.x + wobbleX, mousePosition.y + wobbleY, 0);
 		
 		
 		//Debug.Log (deltaPos.x);
 
 
-			if (Input.GetMouseButtonDown(0) && Time.time > bulletTime) {
+			if (Input.GetMouseButtonDown(1) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(5)){
 					bulletTime = Time.time +fireRate;
-					Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
+                   /* if (towers[towerIndex] != null) {
+                        Destroy(towers[towerIndex]);
+                    }
+					towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
+                    towerIndex = (towerIndex + 1) % 4;*/
+                    if (towerIndex < 3) {
+                        	towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
+                            towerIndex++;
+                    }
                 }
-		} else if (Input.GetMouseButtonDown(1) && Time.time > bulletTime) {
+		} else if (Input.GetMouseButtonDown(0) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(20)){
 					bulletTime = Time.time +fireRate;
 					Instantiate (bomb, this.transform.position, Quaternion.identity);
 				}
-			}else if (Input.GetKeyDown(keyFreezeBomb) && Time.time > bulletTime) {
+            } else if (Input.GetMouseButtonDown(2) && Time.time > bulletTime) {
 			if(energi.useGameMasterEnergi(5)){
 				bulletTime = Time.time +fireRate;
 				Instantiate (freezeBomb, this.transform.position, Quaternion.identity);

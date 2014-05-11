@@ -3,13 +3,16 @@ using System.Collections;
 
 public class EnergiBar : MonoBehaviour {
 	int pointer; //pointer er også playerens energi
-	public int size = 198;
+	private int size = 238;
 	public float movePointerEveryXSec = 1.5f;
 	public Transform adjust;
 	private bool flash = false;
 	private bool toFlash = true;
 	private float flashtimer = 0.4f;
     bool gameStarted = false, gameEnded = false;
+	public AudioClip laughatPunyHuman;
+	public AudioClip iWillNeverDie;
+	public AudioClip bossDie;
     
 
 	// Use this for initialization
@@ -17,6 +20,7 @@ public class EnergiBar : MonoBehaviour {
 		pointer = size / 2; //
         adjust.localScale = new Vector3(pointer / 4, 1, 0);
         Screen.showCursor = false;
+
 	}
 
 	// Update is called once per frame

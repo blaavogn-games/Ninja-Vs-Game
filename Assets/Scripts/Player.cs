@@ -5,7 +5,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	EnergiBar energi;
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
-	public float speed = 15.0f, slow = 1;
+	private float speed = 40.0f, slow = 1;
 	public float invisibilityTime = 2f;
 	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
@@ -34,8 +34,6 @@ public class Player : MonoBehaviour, AlarmListener {
 		float y = movement.y;
 		float x = movement.x;
         isMoving = true;
-
-
         if (Input.GetKey(down) || Input.GetAxis("Vertical") < -.25f) {
 			movement.y -= frameSpeed;
 		}
@@ -56,7 +54,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 
         if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
-			if(energi.usePlayerEnergi(10)){
+			if(energi.usePlayerEnergi(40)){
 				Debug.Log ("use player energi");
 				speedBoost = 2f;
 				isRolling = true;
@@ -66,9 +64,9 @@ public class Player : MonoBehaviour, AlarmListener {
 				alarm.addTimer(.5f, (int)Ability.RollFall, false);
 				audio.Play();
 			}
-		} 
+		}
 
-		if(Input.GetKeyDown(invisibility)){
+        if (Input.GetKeyDown(invisibility) || Input.GetButtonDown("Inv")) {
 			if(energi.usePlayerEnergi(30)){
 				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
 				SR.color = Color.clear;
@@ -125,10 +123,11 @@ public class Player : MonoBehaviour, AlarmListener {
 	void OnTriggerEnter2D(Collider2D col){
 
         if ("Slow".CompareTo(col.tag) == 0) {
-            slow = 0.8f;
+            slow = 0.6f;
             slowNum++;
         } else {
             Instantiate(deadAnimation, this.position, Quaternion.identity);
+            Instantiate(Resources.Load("sprites/gui/preGameWins"));
 			if(!col.gameObject.tag.Equals("Explosions"))
             	Destroy(col.gameObject);
             Destroy(this.gameObject);

@@ -2,27 +2,28 @@
 using System.Collections;
 
 public class ArrowBomb : MonoBehaviour, AlarmListener {
-	float angle;
+	float angle = 90;
 	Alarm alarm;
 	bool flashSwitch = false;
-	public float blinktTime;
-	float blinkCounter;
-	float shootCounter;
+	public float blinktTime = .3f;
+	float blinkCounter = 0;
+	float shootCounter = 0;
 
 	// Use this for initialization
 	void Start () {
-		blinktTime = 0.3f;
-		angle = 90f;
-		blinkCounter = 0f;
-		shootCounter = 0f;
-
-
 		alarm = GetComponent<Alarm> ();
 		if (alarm == null) {
 			alarm = gameObject.AddComponent<Alarm>();		
 		}
 		alarm.setListener (this);
 		alarm.addTimer (0.3f, 0, false);
+
+        
+	    angle = 90;
+	    flashSwitch = false;
+	    blinktTime = .3f;
+	    blinkCounter = 0;
+	    shootCounter = 0;
 	}
 	
 	// Update is called once per frame
@@ -45,7 +46,10 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 				blinkCounter += 1;
 			}
 		}
-		else{
+		else if(i == 99){
+            Start();
+
+        } else{
 			arrowBombExplode();
 
 		}
@@ -59,7 +63,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			shootCounter += 1f;
 			alarm.addTimer (0.2f, 1, false);
 		} else {
-			Start();
+            alarm.addTimer(3, 99, false);
 		}
 	}
 }
