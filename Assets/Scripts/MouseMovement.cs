@@ -49,7 +49,7 @@ public class MouseMovement : MonoBehaviour {
                         Destroy(towers[towerIndex]);
                     }
 					towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
-                    towerIndex = (towerIndex + 1) % 4;*/
+                    towerIndex = (towerIndex + 1) % 3;**/
                     if (towerIndex < 3) {
                         	towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
                             towerIndex++;
