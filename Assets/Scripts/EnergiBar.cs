@@ -13,6 +13,7 @@ public class EnergiBar : MonoBehaviour {
 	public AudioClip laughatPunyHuman;
 	public AudioClip iWillNeverDie;
 	public AudioClip bossDie;
+
     
 
 	// Use this for initialization
