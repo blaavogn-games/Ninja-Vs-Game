@@ -21,42 +21,42 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
 	// Update is called once per frame
 	void Update () {
         meltTime += Time.deltaTime;
-        float trans = (meltTime < 4) ? 1 : 5 - meltTime;
-        transform.Translate(0, 0.01f, 0);
+        float trans = (meltTime < 4) ? 0.9f : 5 - meltTime;
+        transform.Translate(0, 0.001f, 0);
         spriteRenderer.color = new Color(1, 1, 1, trans);
-       // if (meltTime >= 5)
-       //     Destroy(gameObject);
+        if (meltTime >= 5)
+            Destroy(gameObject);
     }
 
 	public void onAlarm(int i){
-		float aniSpeed = 0.3f;
+		float aniSpeed = 0.1f;
 		if (i == 1) {
 			spriteRenderer.sprite = slowFrame1;
 			aniDir = true;
-			alarm.addTimer(aniSpeed, 2, false);
+			alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 				}
 		else if (i == 2){
 			spriteRenderer.sprite = slowFrame1;
 			if (aniDir == true){
-				alarm.addTimer(aniSpeed, 3, false);
+				alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 			}
 			else{
-				alarm.addTimer(aniSpeed, 1, false);
+				alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 			}
 		}
 		else if (i == 3){
 			spriteRenderer.sprite = slowFrame3;
 			if (aniDir == true){
-				alarm.addTimer(aniSpeed, 4, false);
+				alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 			}
 			else{
-				alarm.addTimer(aniSpeed, 2, false);
+				alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 			}
 		}
 		else if (i == 4){
 			spriteRenderer.sprite = slowFrame4;
 			aniDir = false;;
-			alarm.addTimer(aniSpeed, 3, false);
+			alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 		}
 	}
 }
