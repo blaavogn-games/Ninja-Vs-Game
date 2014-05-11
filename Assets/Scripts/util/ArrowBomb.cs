@@ -50,7 +50,6 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 		if (shootCounter < 13) {
 			Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
 			angle += 30f;
-			Debug.Log(shootCounter);
 			shootCounter += 1f;
 			alarm.addTimer (0.2f, 1, false);
 		} else {
