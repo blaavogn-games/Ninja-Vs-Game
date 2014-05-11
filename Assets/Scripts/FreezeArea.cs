@@ -22,7 +22,7 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
 	void Update () {
         meltTime += Time.deltaTime;
         float trans = (meltTime < 4) ? 1 : 5 - meltTime;
-
+        transform.Translate(0, 0.01f, 0);
         spriteRenderer.color = new Color(1, 1, 1, trans);
        // if (meltTime >= 5)
        //     Destroy(gameObject);

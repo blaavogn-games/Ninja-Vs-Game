@@ -16,6 +16,7 @@ public class Player : MonoBehaviour, AlarmListener {
     int slowNum = 0;
     bool isMoving;
     bool isRolling = false;
+    public AudioClip invisibleSound;
 
 	// Use this for initialization
 	void Start () {
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
         if (Input.GetKeyDown(invisibility) || Input.GetButtonDown("Inv")) {
 			if(energi.usePlayerEnergi(30)){
+                audio.PlayOneShot(invisibleSound);
 				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
 				SR.color = Color.clear;
 				alarm.removeType((int) Ability.Invisibility);
@@ -142,7 +144,8 @@ public class Player : MonoBehaviour, AlarmListener {
         if ("Slow".CompareTo(col.tag) == 0) {
             slowNum--;
             Debug.Log(slowNum);
-            if (slowNum == 0) {
+            if (slowNum <= 0) {
+                slowNum = 0;
                 dashSlow = 1f;
                 slow = 1f;
                 Debug.Log("sdfsdfsdf");

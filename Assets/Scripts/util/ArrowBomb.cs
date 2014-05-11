@@ -61,9 +61,9 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			Instantiate (Resources.Load ("ArrowBombShot"), transform.position + new Vector3 (0, 0), Quaternion.Euler (0, 0, angle));
 			angle += 30f;
 			shootCounter += 1f;
-			alarm.addTimer (0.2f, 1, false);
+			alarm.addTimer (0.25f, 1, false);
 		} else {
-            alarm.addTimer(3, 99, false);
+            alarm.addTimer(4, 99, false);
 		}
 	}
 }

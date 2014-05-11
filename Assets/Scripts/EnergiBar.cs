@@ -28,7 +28,12 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 	}
 
 	// Update is called once per frame
-	void Update () {
+    void Update() {
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            Application.LoadLevel(0);
+        }
+		
         if (!gameStarted || gameEnded)
             return;
 
@@ -48,11 +53,6 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 			GetComponent<Alarm>().addTimer(4, 0, false);
             
 		}
-		
-		if(Input.GetKeyDown(KeyCode.R)){
-			Application.LoadLevel(0);
-		}
-		
 		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
 
 		if(pointer >= size /4 * 3){
