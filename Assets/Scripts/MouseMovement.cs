@@ -23,7 +23,7 @@ public class MouseMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        towers = new GameObject[4];
+        towers = new GameObject[3];
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 	}
 	
@@ -45,11 +45,15 @@ public class MouseMovement : MonoBehaviour {
 			if (Input.GetMouseButtonDown(1) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(5)){
 					bulletTime = Time.time +fireRate;
-                    if (towers[towerIndex] != null) {
+                   /* if (towers[towerIndex] != null) {
                         Destroy(towers[towerIndex]);
                     }
 					towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
-                    towerIndex = (towerIndex + 1) % 4;
+                    towerIndex = (towerIndex + 1) % 4;*/
+                    if (towerIndex < 3) {
+                        	towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
+                            towerIndex++;
+                    }
                 }
 		} else if (Input.GetMouseButtonDown(0) && Time.time > bulletTime) {
 				if(energi.useGameMasterEnergi(20)){

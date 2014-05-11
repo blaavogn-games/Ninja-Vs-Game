@@ -17,6 +17,13 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 		}
 		alarm.setListener (this);
 		alarm.addTimer (0.3f, 0, false);
+
+        
+	    angle = 90;
+	    flashSwitch = false;
+	    blinktTime = .3f;
+	    blinkCounter = 0;
+	    shootCounter = 0;
 	}
 	
 	// Update is called once per frame
@@ -39,7 +46,10 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 				blinkCounter += 1;
 			}
 		}
-		else{
+		else if(i == 99){
+            Start();
+
+        } else{
 			arrowBombExplode();
 
 		}
@@ -53,7 +63,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			shootCounter += 1f;
 			alarm.addTimer (0.2f, 1, false);
 		} else {
-			Destroy (gameObject);
+            alarm.addTimer(3, 99, false);
 		}
 	}
 }
