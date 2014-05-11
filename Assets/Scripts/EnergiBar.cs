@@ -137,4 +137,8 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 	public void gameEnd(){
 		gameEnded = true;
 	}
+
+	public bool getGameEnded(){
+		return gameEnded;
+	}
 }
