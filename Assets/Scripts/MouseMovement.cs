@@ -23,7 +23,7 @@ public class MouseMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        towers = new GameObject[3];
+        towers = new GameObject[2];
 		energi = GameObject.FindGameObjectWithTag ("Energy").GetComponent<EnergiBar> ();
 	}
 	
@@ -50,7 +50,7 @@ public class MouseMovement : MonoBehaviour {
                     }
 					towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
                     towerIndex = (towerIndex + 1) % 4;*/
-                    if (towerIndex < 3) {
+                    if (towerIndex < 2) {
                         	towers[towerIndex] = (GameObject) Instantiate (arrowBomb, this.transform.position, Quaternion.identity);
                             towerIndex++;
                     }

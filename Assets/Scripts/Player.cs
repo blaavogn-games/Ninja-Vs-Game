@@ -54,7 +54,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
 
         if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
-			if(energi.usePlayerEnergi(15)){
+			if(energi.usePlayerEnergi(22)){
 				Debug.Log ("use player energi");
 				speedBoost = 3f;
 				isRolling = true;
