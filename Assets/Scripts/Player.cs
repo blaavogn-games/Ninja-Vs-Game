@@ -68,7 +68,7 @@ public class Player : MonoBehaviour, AlarmListener {
 		}
 
         if (Input.GetKeyDown(invisibility) || Input.GetButtonDown("Inv")) {
-			if(energi.usePlayerEnergi(30)){
+			if(energi.usePlayerEnergi(16)){
                 audio.PlayOneShot(invisibleSound);
 				SpriteRenderer SR = (SpriteRenderer) GetComponent<SpriteRenderer>();
 				SR.color = Color.clear;
@@ -124,34 +124,36 @@ public class Player : MonoBehaviour, AlarmListener {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col){
-
-        if ("Slow".CompareTo(col.tag) == 0) {
+    public void changeFreeze(int i) {
+        slow += i;
+        if (slow > 0) {
             slow = 0.6f;
             dashSlow = 0.9f;
-            slowNum++;
+
+        } else {
+
+            slow = 1;
+            dashSlow = 1;
+        }
+
+    }
+
+	void OnTriggerEnter2D(Collider2D col){
+        
+        if (col.tag == "Slow") {
+           
         } else {
             Instantiate(deadAnimation, this.position, Quaternion.identity);
-            Instantiate(Resources.Load("sprites/gui/preGameWins"));
-			energi.endGame();
+			if(!energi.getGameEnded()){
+	            Instantiate(Resources.Load("sprites/gui/preGameWins"));
+				energi.endGame();
+			}
 			if(!col.gameObject.tag.Equals("Explosions"))
             	Destroy(col.gameObject);
             Destroy(this.gameObject);
         }
 	}
-    void OnTriggerExit2D(Collider2D col) {
-        Debug.Log(slowNum);
-        if ("Slow".CompareTo(col.tag) == 0) {
-            slowNum--;
-            Debug.Log(slowNum);
-            if (slowNum <= 0) {
-                slowNum = 0;
-                dashSlow = 1f;
-                slow = 1f;
-                Debug.Log("sdfsdfsdf");
-            }
-        }
-    }
+ 
 
 	private enum Ability{
 		RollFall = 0, Invisibility =1

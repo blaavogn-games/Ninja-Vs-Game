@@ -16,6 +16,7 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 	bool haveLaughed;
 	bool haveDied = false;
 	bool haveNever;
+    public float costIncrease;
 
     
 
@@ -42,7 +43,7 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 		if (movePointerEveryXSec <= 0) {
 			movePointerEveryXSec = 1.5f;
 			if(pointer < size && !gameEnded)
-				pointer += 4;
+				pointer +=(int)( 6 * costIncrease);
 		}
 		if (pointer > size) {
             gameEnded = true;
@@ -90,7 +91,7 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
         }
         
         if (playerEnergi <= pointer){
-			pointer -= playerEnergi;
+            pointer -= (int) (playerEnergi * costIncrease);
 			return true;
 		}
 		return false;
@@ -100,9 +101,11 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 		if(gameEnded && !haveDied){
 			return true;
 		}
+        int energi = (int)(gameMasterEnergi * costIncrease);
 
-		if(gameMasterEnergi <= (size - pointer)){
-			pointer += gameMasterEnergi;
+
+		if(energi <= (size - pointer)){
+			pointer += energi;
 			return true;
 		}
 		return false;
@@ -136,5 +139,9 @@ public class EnergiBar : MonoBehaviour, AlarmListener {
 
 	public void gameEnd(){
 		gameEnded = true;
+	}
+
+	public bool getGameEnded(){
+		return gameEnded;
 	}
 }

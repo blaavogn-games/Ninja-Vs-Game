@@ -33,8 +33,8 @@ public class MouseMovement : MonoBehaviour {
 		
 		deltaPos =  mousePosition - lastMousePos;
 		
-		wobbleX = Mathf.Sin (Time.time)*3 ;//*deltaPos.x;
-		wobbleY = Mathf.Cos (Time.time)*3 ;//*deltaPos.y;
+		wobbleX = Mathf.Sin (Time.time)*20 ;//*deltaPos.x;
+		wobbleY = Mathf.Cos (Time.time)*20 ;//*deltaPos.y;
 
         this.transform.position = new Vector3(mousePosition.x + wobbleX, mousePosition.y + wobbleY, 0);
 		
