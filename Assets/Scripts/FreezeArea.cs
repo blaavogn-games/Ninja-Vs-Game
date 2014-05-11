@@ -7,6 +7,7 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
     float meltTime = 0;
 	bool aniDir = true;
     Alarm alarm;
+    GameObject player;
 
     void Start() {
 		alarm = GetComponent<Alarm> ();
@@ -22,11 +23,16 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
 	void Update () {
         meltTime += Time.deltaTime;
         float trans = (meltTime < 4) ? 0.9f : 5 - meltTime;
-        transform.Translate(0, 0.001f, 0);
+        transform.Translate(0, 0, 0.1f);
         spriteRenderer.color = new Color(1, 1, 1, trans);
-        if (meltTime >= 5)
+        if (meltTime >= 5) {
+            if(player != null)
+                player.GetComponent<Player>().changeFreeze(-1);
             Destroy(gameObject);
+        }
     }
+
+
 
 	public void onAlarm(int i){
 		float aniSpeed = 0.1f;
@@ -59,4 +65,17 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
 			alarm.addTimer(aniSpeed, Random.Range(0,5), false);
 		}
 	}
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.tag == "Player") {
+            player = col.gameObject;
+            player.GetComponent<Player>().changeFreeze(1);
+        }
+    }
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.tag == "Player") {
+            player.GetComponent<Player>().changeFreeze(-1);
+            player = null;
+        }
+    }
 }
