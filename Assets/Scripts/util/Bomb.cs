@@ -21,7 +21,7 @@ public class Bomb : MonoBehaviour, AlarmListener {
 	public void onAlarm(int i){
 		if (i == 3 && blinkCounter < 3) {
 			spriteRenderer.sprite = bombFrame1;
-			alarm.addTimer (0.11f, 4, false);
+			alarm.addTimer (0.16f, 4, false);
 		} else if (i == 4 && blinkCounter < 3) {
 			spriteRenderer.sprite = bombFrame2;
 			alarm.addTimer (0.12f, 3, false);

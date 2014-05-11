@@ -6,6 +6,7 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
     SpriteRenderer spriteRenderer;
     float meltTime = 0;
 	bool aniDir = true;
+    Alarm alarm;
 
     void Start() {
 		alarm = GetComponent<Alarm> ();
@@ -19,8 +20,6 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
 
 	// Update is called once per frame
 	void Update () {
-
-		spriteRenderer.sprite
         meltTime += Time.deltaTime;
         float trans = (meltTime < 4) ? 1 : 5 - meltTime;
 
@@ -30,33 +29,34 @@ public class FreezeArea : MonoBehaviour, AlarmListener {
     }
 
 	public void onAlarm(int i){
-		float aniSpeed = 0.3;
+		float aniSpeed = 0.3f;
 		if (i == 1) {
 			spriteRenderer.sprite = slowFrame1;
 			aniDir = true;
-			Alarm(aniSpeed, 2, false)
+			alarm.addTimer(aniSpeed, 2, false);
 				}
 		else if (i == 2){
 			spriteRenderer.sprite = slowFrame1;
 			if (aniDir == true){
-				Alarm(aniSpeed, 3, false)
+				alarm.addTimer(aniSpeed, 3, false);
 			}
 			else{
-				Alarm(aniSpeed, 1, false)
+				alarm.addTimer(aniSpeed, 1, false);
 			}
 		}
 		else if (i == 3){
 			spriteRenderer.sprite = slowFrame3;
 			if (aniDir == true){
-				Alarm(aniSpeed, 4, false)
+				alarm.addTimer(aniSpeed, 4, false);
 			}
 			else{
-				Alarm(aniSpeed, 2, false)
+				alarm.addTimer(aniSpeed, 2, false);
 			}
 		}
 		else if (i == 4){
 			spriteRenderer.sprite = slowFrame4;
-			aniDir = false;
-			Alarm(0.2, 3, false)
+			aniDir = false;;
+			alarm.addTimer(aniSpeed, 3, false);
 		}
 	}
+}

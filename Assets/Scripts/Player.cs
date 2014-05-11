@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
     Animator animator;
-	public float speedBoost = 1.0f;
+	public float speedBoost = 1.0f, dashSlow = 0.8f;
 	public GameObject deadAnimation;
 	private Alarm alarm;
     int slowNum = 0;
@@ -54,9 +54,9 @@ public class Player : MonoBehaviour, AlarmListener {
 
 
         if (Input.GetKeyDown(rollFall) || Input.GetButtonDown("Roll")) {
-			if(energi.usePlayerEnergi(40)){
+			if(energi.usePlayerEnergi(15)){
 				Debug.Log ("use player energi");
-				speedBoost = 2f;
+				speedBoost = 3f;
 				isRolling = true;
 				boxCollider.center = new Vector2(0, -3);
 				boxCollider.size = new Vector2(7, 7);
@@ -75,16 +75,18 @@ public class Player : MonoBehaviour, AlarmListener {
 			}
 		}
 
+        float actualSlow = (isRolling) ? dashSlow : slow; 
+
 		if (movement.x != x && movement.y != y) {
 			movement.x = (movement.x * Mathf.Sqrt(2))/2;
 			movement.y = (movement.y * Mathf.Sqrt(2))/2;
-			position += movement * slow;
+            position += movement * actualSlow;
 			transform.position = position;
 		} else if(movement.x != x ^ movement.y != y){
-            position += movement * slow;
+            position += movement * actualSlow;
 			transform.position = position;
         } else{
-            position += movement * slow;
+            position += movement * actualSlow;
 			transform.position = new Vector2 (Mathf.Round(position.x), Mathf.Round( position.y));
             isMoving = false;
 		}
@@ -124,6 +126,7 @@ public class Player : MonoBehaviour, AlarmListener {
 
         if ("Slow".CompareTo(col.tag) == 0) {
             slow = 0.6f;
+            dashSlow = 0.9f;
             slowNum++;
         } else {
             Instantiate(deadAnimation, this.position, Quaternion.identity);
@@ -133,11 +136,15 @@ public class Player : MonoBehaviour, AlarmListener {
             Destroy(this.gameObject);
         }
 	}
-    void OnTriggerExit2D(Collider2D col){
+    void OnTriggerExit2D(Collider2D col) {
+        Debug.Log(slowNum);
         if ("Slow".CompareTo(col.tag) == 0) {
             slowNum--;
+            Debug.Log(slowNum);
             if (slowNum == 0) {
+                dashSlow = 1f;
                 slow = 1f;
+                Debug.Log("sdfsdfsdf");
             }
         }
     }
