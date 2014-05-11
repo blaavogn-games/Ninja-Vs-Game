@@ -9,18 +9,19 @@ public class EnergiBar : MonoBehaviour {
 	private bool flash = false;
 	private bool toFlash = true;
 	private float flashtimer = 0.4f;
-    bool gameStarted = false;
+    bool gameStarted = false, gameEnded = false;
+    
 
 	// Use this for initialization
 	void Start () {
 		pointer = size / 2; //
-		adjust.localScale = new Vector3( pointer / 4 , 1 , 0);
-
+        adjust.localScale = new Vector3(pointer / 4, 1, 0);
+        Screen.showCursor = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
-        if (!gameStarted)
+        if (!gameStarted || gameEnded)
             return;
 
 		movePointerEveryXSec -= Time.deltaTime;
@@ -31,10 +32,11 @@ public class EnergiBar : MonoBehaviour {
 				pointer += 4;
 		}
 		if (pointer > size) {
-			Debug.Log("GameMaster must die");
-
+            gameEnded = true;
+            Instantiate(Resources.Load("sprites/gui/prePlayerWins"));
 		}else if (pointer < 0){
-			Debug.Log("Player must die"); 
+            pointer = 0;
+            Debug.Log("Player must die"); 
 		}
 		
 		if(Input.GetKeyDown(KeyCode.R)){
@@ -59,8 +61,12 @@ public class EnergiBar : MonoBehaviour {
         gameStarted = true;
     }
 
+    public void endGame() {
+        gameEnded = true;
+    }
+
 	public bool usePlayerEnergi(int playerEnergi){
-        if (!gameStarted) {
+        if (!gameStarted || gameEnded) {
             return true;
         }
         
