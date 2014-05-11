@@ -114,8 +114,8 @@ public class Player : MonoBehaviour, AlarmListener {
 
 	public void onAlarm(int i){
 		if(i ==(int) Ability.RollFall){
-	        boxCollider.center = new Vector2(0, 0);
-	        boxCollider.size = new Vector2(7, 13);
+	        boxCollider.center = new Vector2(-0.5f, -1);
+	        boxCollider.size = new Vector2(5, 10);
 	        speedBoost = 1.0f;
 	        isRolling = false;
 		} else if (i == (int) Ability.Invisibility){
