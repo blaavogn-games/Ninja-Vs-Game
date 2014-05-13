@@ -63,7 +63,7 @@ public class ArrowBomb : MonoBehaviour, AlarmListener {
 			shootCounter += 1f;
 			alarm.addTimer (0.25f, 1, false);
 		} else {
-            alarm.addTimer(4, 99, false);
+            alarm.addTimer(2.5f, 99, false);
 		}
 	}
 }

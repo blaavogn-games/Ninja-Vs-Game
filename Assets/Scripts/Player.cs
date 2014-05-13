@@ -5,7 +5,7 @@ public class Player : MonoBehaviour, AlarmListener {
 	EnergiBar energi;
     BoxCollider2D boxCollider;
     private readonly Vector2 min = new Vector2(-116, -84),max = new Vector2(116, 75);
-	private float speed = 40.0f, slow = 1;
+	private float speed = 36.0f, slow = 1;
 	public float invisibilityTime = 2f;
 	public KeyCode up, down, left, right, rollFall, invisibility;
 	private Vector2 position;
